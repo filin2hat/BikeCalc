@@ -1,4 +1,4 @@
-package dev.filinhat.bikepressurecalc.ui.theme
+package dev.filinhat.bikepressurecalc.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
