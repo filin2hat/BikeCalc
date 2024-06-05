@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "dev.filinhat.bikepressurecalc"
+    namespace = "dev.filin2hat.bikepressurecalc"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "dev.filinhat.bikepressurecalc"
+        applicationId = "dev.filin2hat.bikepressurecalc"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -51,14 +51,23 @@ android {
 
 dependencies {
 
+    // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // UI
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Hilt
+    implementation (libs.dagger.hilt)
+    annotationProcessor (libs.dagger.hilt.compiller)
+
+    // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

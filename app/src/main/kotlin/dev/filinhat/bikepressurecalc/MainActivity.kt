@@ -12,10 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
-import dev.filinhat.bikepressurecalc.presentation.screen.BikePressureCalculator
+import dagger.hilt.android.AndroidEntryPoint
+import dev.filinhat.bikepressurecalc.presentation.screen.PressureCalculatorScreen
 import dev.filinhat.bikepressurecalc.presentation.ui.theme.BikePressureCalcTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    BikePressureCalculator(
+                    PressureCalculatorScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

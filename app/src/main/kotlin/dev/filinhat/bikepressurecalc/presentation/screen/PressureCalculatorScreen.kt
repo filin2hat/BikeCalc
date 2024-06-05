@@ -24,7 +24,7 @@ import dev.filinhat.bikepressurecalc.common.Calculator.roadRearPressure
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun BikePressureCalculator(
+fun PressureCalculatorScreen(
     modifier: Modifier
 ) {
     var riderWeight by remember { mutableStateOf(TextFieldValue("")) }
