@@ -1,0 +1,48 @@
+package dev.filinhat.bikepressurecalc.common.enums
+
+/**
+ * Список размеров для 29 дюймовых колес велосипеда.
+ */
+enum class TireSize29Inches(
+    override val tireSize: Double,
+) : TireSize {
+    Size29x075(0.75),
+    Size29x080(0.80),
+    Size29x085(0.85),
+    Size29x090(0.90),
+    Size29x100(1.00),
+    Size29x110(1.10),
+    Size29x1125(1.125),
+    Size29x125(1.25),
+    Size29x130(1.30),
+    Size29x135(1.35),
+    Size29x1375(1.375),
+    Size29x138(1.38),
+    Size29x140(1.40),
+    Size29x150(1.50),
+    Size29x160(1.60),
+    Size29x165(1.65),
+    Size29x175(1.75),
+    Size29x185(1.85),
+    Size29x190(1.90),
+    Size29x195(1.95),
+    Size29x200(2.00),
+    Size29x205(2.05),
+    Size29x210(2.10),
+    Size29x2125(2.125),
+    Size29x215(2.15),
+    Size29x220(2.20),
+    Size29x225(2.25),
+    Size29x230(2.30),
+    Size29x235(2.35),
+    Size29x240(2.40),
+    Size29x250(2.50),
+    Size29x260(2.60),
+    Size29x275(2.70),
+    Size29x280(2.80),
+    Size29x300(3.00),
+    Size29x380(3.80),
+    Size29x400(4.00),
+    Size29x480(4.80),
+    Size29x500(5.00),
+}

@@ -51,10 +51,6 @@ val Typography = Typography(
         fontSize = 24.sp,
         lineHeight = 32.sp,
     ),
-
-    /** Изменены под вид макетов. **/
-
-    /** Изменены под вид макетов. **/
     bodyLarge = TextStyle(
         fontFamily = robotoFamily,
         fontWeight = FontWeight.Normal,
@@ -72,9 +68,6 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 10.sp,
     ),
-    /** Конец изменений кастомных изменений. **/
-    /** Конец изменений кастомных изменений. **/
-
     labelLarge = TextStyle(
         fontFamily = robotoFamily,
         fontWeight = FontWeight.Medium,

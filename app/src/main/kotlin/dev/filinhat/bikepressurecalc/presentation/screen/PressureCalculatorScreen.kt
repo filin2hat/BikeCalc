@@ -1,6 +1,5 @@
 package dev.filinhat.bikepressurecalc.presentation.screen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,18 +14,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.mtbFrontPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.mtbRearPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadFrontPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadRearPressure
+import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
 
-@SuppressLint("DefaultLocale")
 @Composable
-fun PressureCalculatorScreen(
-    modifier: Modifier
-) {
+fun PressureCalculatorScreen(modifier: Modifier) {
     var riderWeight by remember { mutableStateOf(TextFieldValue("")) }
     var bikeWeight by remember { mutableStateOf(TextFieldValue("")) }
     var wheelSize by remember { mutableStateOf(TextFieldValue("")) }
@@ -37,39 +35,40 @@ fun PressureCalculatorScreen(
     var pressureRearRoad by remember { mutableStateOf("") }
 
     Column(
-        modifier = modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier =
+            modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-
         OutlinedTextField(
             value = riderWeight,
             onValueChange = { riderWeight = it },
             label = { Text("Вес велосипедиста (кг)") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         OutlinedTextField(
             value = bikeWeight,
             onValueChange = { bikeWeight = it },
             label = { Text("Вес велосипеда (кг)") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         OutlinedTextField(
             value = wheelSize,
             onValueChange = { wheelSize = it },
             label = { Text("Размер колеса (дюймы)") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         OutlinedTextField(
             value = tireSize,
-            onValueChange = { tireSize = it
+            onValueChange = {
+                tireSize = it
             },
             label = { Text("Размер покрышки (мм)") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Button(
@@ -79,17 +78,41 @@ fun PressureCalculatorScreen(
                 val wheelSizeValue = wheelSize.text.toDoubleOrNull() ?: 0.0
                 val tireSizeValue = tireSize.text.toDoubleOrNull() ?: 0.0
 
-                val pressureFrontValue = mtbFrontPressure(riderWeightValue, bikeWeightValue, wheelSizeValue, tireSizeValue)
-                val pressureRearValue = mtbRearPressure(riderWeightValue, bikeWeightValue, wheelSizeValue, tireSizeValue)
-                val pressureFrontRoadValue = roadFrontPressure(riderWeightValue, bikeWeightValue, wheelSizeValue, tireSizeValue)
-                val pressureRearRoadValue = roadRearPressure(riderWeightValue, bikeWeightValue, wheelSizeValue, tireSizeValue)
+                val pressureFrontValue =
+                    mtbFrontPressure(
+                        riderWeightValue,
+                        bikeWeightValue,
+                        wheelSizeValue,
+                        tireSizeValue,
+                    )
+                val pressureRearValue =
+                    mtbRearPressure(
+                        riderWeightValue,
+                        bikeWeightValue,
+                        wheelSizeValue,
+                        tireSizeValue,
+                    )
+                val pressureFrontRoadValue =
+                    roadFrontPressure(
+                        riderWeightValue,
+                        bikeWeightValue,
+                        wheelSizeValue,
+                        tireSizeValue,
+                    )
+                val pressureRearRoadValue =
+                    roadRearPressure(
+                        riderWeightValue,
+                        bikeWeightValue,
+                        wheelSizeValue,
+                        tireSizeValue,
+                    )
 
                 pressureFront = String.format("%.1f", pressureFrontValue)
                 pressureRear = String.format("%.1f", pressureRearValue)
                 pressureFrontRoad = String.format("%.2f", pressureFrontRoadValue)
                 pressureRearRoad = String.format("%.2f", pressureRearRoadValue)
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Text("Рассчитать давление")
         }
@@ -98,5 +121,15 @@ fun PressureCalculatorScreen(
         Text(text = "Давление заднего колеса: $pressureRear бар", fontSize = 18.sp)
         Text(text = "Шоссейное Давление переднего колеса: $pressureFrontRoad бар", fontSize = 18.sp)
         Text(text = "Шоссейное Давление заднего колеса: $pressureRearRoad бар", fontSize = 18.sp)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PressureCalculatorScreenPreview() {
+    ApplicationTheme {
+        PressureCalculatorScreen(
+            modifier = Modifier,
+        )
     }
 }

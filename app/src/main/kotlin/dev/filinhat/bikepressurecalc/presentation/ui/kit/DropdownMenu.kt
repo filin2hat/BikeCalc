@@ -19,7 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.filinhat.bikepressurecalc.presentation.ui.theme.BikePressureCalcTheme
+import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -97,7 +97,7 @@ fun <T> DropdownMenu(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewDropdownMenu() {
-    BikePressureCalcTheme {
+    ApplicationTheme {
         DropdownMenu(
             items = persistentListOf(),
             onItemSelected = { },

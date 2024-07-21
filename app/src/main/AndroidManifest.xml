@@ -14,9 +14,8 @@
         android:theme="@style/Theme.BikePressureCalc"
         tools:targetApi="31">
         <activity
-            android:name="dev.filinhat.bikepressurecalc.MainActivity"
+            android:name="dev.filinhat.bikepressurecalc.presentation.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.BikePressureCalc">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

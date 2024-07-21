@@ -1,4 +1,4 @@
-package dev.filinhat.bikepressurecalc
+package dev.filinhat.bikepressurecalc.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,17 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import dagger.hilt.android.AndroidEntryPoint
 import dev.filinhat.bikepressurecalc.presentation.screen.PressureCalculatorScreen
-import dev.filinhat.bikepressurecalc.presentation.ui.theme.BikePressureCalcTheme
+import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            BikePressureCalcTheme {
+            ApplicationTheme {
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -32,15 +31,15 @@ class MainActivity : ComponentActivity() {
                                 Text(
                                     text = "Калькулятор давления в шинах для велосипеда",
                                     maxLines = 2,
-                                    overflow = TextOverflow.Ellipsis
+                                    overflow = TextOverflow.Ellipsis,
                                 )
-                            }
+                            },
                         )
                     },
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
                     PressureCalculatorScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
                     )
                 }
             }
