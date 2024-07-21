@@ -6,10 +6,9 @@ package dev.filinhat.bikepressurecalc.common.enums
  * @param inchesSize диаметр в дюймах
  */
 enum class WheelSize(
-    val inchesSize: Double,
+    var inchesSize: Double,
 ) {
     Inches24(24.0),
-    Inches25(25.0),
     Inches26(26.0),
     Inches27dot5(27.5),
     Inches28(28.0),

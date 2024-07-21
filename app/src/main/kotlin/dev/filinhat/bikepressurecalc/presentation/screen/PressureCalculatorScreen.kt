@@ -21,13 +21,18 @@ import dev.filinhat.bikepressurecalc.common.PressureCalculator.mtbFrontPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.mtbRearPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadFrontPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadRearPressure
+import dev.filinhat.bikepressurecalc.common.enums.WheelSize
+import dev.filinhat.bikepressurecalc.common.utils.toStringName
+import dev.filinhat.bikepressurecalc.common.utils.toWheelSize
+import dev.filinhat.bikepressurecalc.presentation.ui.kit.DropdownMenu
 import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
+import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun PressureCalculatorScreen(modifier: Modifier) {
     var riderWeight by remember { mutableStateOf(TextFieldValue("")) }
     var bikeWeight by remember { mutableStateOf(TextFieldValue("")) }
-    var wheelSize by remember { mutableStateOf(TextFieldValue("")) }
+    var wheelSize by remember { mutableStateOf(WheelSize.entries.first()) }
     var tireSize by remember { mutableStateOf(TextFieldValue("")) }
     var pressureFront by remember { mutableStateOf("") }
     var pressureRear by remember { mutableStateOf("") }
@@ -55,11 +60,15 @@ fun PressureCalculatorScreen(modifier: Modifier) {
             modifier = Modifier.fillMaxWidth(),
         )
 
-        OutlinedTextField(
-            value = wheelSize,
-            onValueChange = { wheelSize = it },
-            label = { Text("Размер колеса (дюймы)") },
+        DropdownMenu(
+            onItemSelected = { item ->
+                wheelSize = item.toWheelSize()
+            },
+            label = "Размер колеса (дюймы)",
+            items = WheelSize.entries.map { it.toStringName() }.toPersistentList(),
+            value = wheelSize.toStringName(),
             modifier = Modifier.fillMaxWidth(),
+            itemLabel = { it.toString() },
         )
 
         OutlinedTextField(
@@ -75,35 +84,34 @@ fun PressureCalculatorScreen(modifier: Modifier) {
             onClick = {
                 val riderWeightValue = riderWeight.text.toDoubleOrNull() ?: 0.0
                 val bikeWeightValue = bikeWeight.text.toDoubleOrNull() ?: 0.0
-                val wheelSizeValue = wheelSize.text.toDoubleOrNull() ?: 0.0
                 val tireSizeValue = tireSize.text.toDoubleOrNull() ?: 0.0
 
                 val pressureFrontValue =
                     mtbFrontPressure(
                         riderWeightValue,
                         bikeWeightValue,
-                        wheelSizeValue,
+                        wheelSize.inchesSize,
                         tireSizeValue,
                     )
                 val pressureRearValue =
                     mtbRearPressure(
                         riderWeightValue,
                         bikeWeightValue,
-                        wheelSizeValue,
+                        wheelSize.inchesSize,
                         tireSizeValue,
                     )
                 val pressureFrontRoadValue =
                     roadFrontPressure(
                         riderWeightValue,
                         bikeWeightValue,
-                        wheelSizeValue,
+                        wheelSize.inchesSize,
                         tireSizeValue,
                     )
                 val pressureRearRoadValue =
                     roadRearPressure(
                         riderWeightValue,
                         bikeWeightValue,
-                        wheelSizeValue,
+                        wheelSize.inchesSize,
                         tireSizeValue,
                     )
 
