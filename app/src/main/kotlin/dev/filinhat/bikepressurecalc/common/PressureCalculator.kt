@@ -1,6 +1,6 @@
 package dev.filinhat.bikepressurecalc.common
 
-object Calculator {
+object PressureCalculator {
 
     fun mtbFrontPressure(
         riderWeight: Double,

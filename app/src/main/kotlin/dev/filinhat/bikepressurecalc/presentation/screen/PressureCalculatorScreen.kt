@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.filinhat.bikepressurecalc.common.Calculator.mtbFrontPressure
-import dev.filinhat.bikepressurecalc.common.Calculator.mtbRearPressure
-import dev.filinhat.bikepressurecalc.common.Calculator.roadFrontPressure
-import dev.filinhat.bikepressurecalc.common.Calculator.roadRearPressure
+import dev.filinhat.bikepressurecalc.common.PressureCalculator.mtbFrontPressure
+import dev.filinhat.bikepressurecalc.common.PressureCalculator.mtbRearPressure
+import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadFrontPressure
+import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadRearPressure
 
 @SuppressLint("DefaultLocale")
 @Composable
