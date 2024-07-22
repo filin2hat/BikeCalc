@@ -22,8 +22,6 @@ import dev.filinhat.bikepressurecalc.common.PressureCalculator.mtbRearPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadFrontPressure
 import dev.filinhat.bikepressurecalc.common.PressureCalculator.roadRearPressure
 import dev.filinhat.bikepressurecalc.common.enums.WheelSize
-import dev.filinhat.bikepressurecalc.common.utils.toStringName
-import dev.filinhat.bikepressurecalc.common.utils.toWheelSize
 import dev.filinhat.bikepressurecalc.presentation.ui.kit.DropdownMenu
 import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
 import kotlinx.collections.immutable.toPersistentList
@@ -62,13 +60,13 @@ fun PressureCalculatorScreen(modifier: Modifier) {
 
         DropdownMenu(
             onItemSelected = { item ->
-                wheelSize = item.toWheelSize()
+                wheelSize = item
             },
             label = "Размер колеса (дюймы)",
-            items = WheelSize.entries.map { it.toStringName() }.toPersistentList(),
-            value = wheelSize.toStringName(),
+            items = WheelSize.entries.toPersistentList(),
+            value = wheelSize,
             modifier = Modifier.fillMaxWidth(),
-            itemLabel = { it.toString() },
+            itemLabel = { it?.nameSize },
         )
 
         OutlinedTextField(
