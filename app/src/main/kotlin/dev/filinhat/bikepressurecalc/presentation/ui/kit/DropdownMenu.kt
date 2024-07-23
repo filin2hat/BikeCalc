@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
-import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 /**
@@ -37,7 +37,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun <T> DropdownMenu(
     onItemSelected: (T) -> Unit,
     label: String,
-    items: ImmutableList<T>,
+    items: PersistentList<Any>?,
     value: T?,
     modifier: Modifier = Modifier,
     itemLabel: (T?) -> String?
@@ -73,14 +73,14 @@ fun <T> DropdownMenu(
                 expanded = isMenuExpanded,
                 onDismissRequest = { isMenuExpanded = false }
             ) {
-                items.forEach { item ->
+                items?.forEach { item ->
                     DropdownMenuItem(
                         onClick = {
-                            selectedItem = item
+                            selectedItem = item as T
                             onItemSelected(item)
                             isMenuExpanded = false
                         },
-                        text = { itemLabel(item)?.let { Text(it) } },
+                        text = { itemLabel(item as T)?.let { Text(it) } },
                     )
                 }
             }

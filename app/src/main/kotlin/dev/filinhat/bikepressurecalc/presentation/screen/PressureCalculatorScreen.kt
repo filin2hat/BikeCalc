@@ -1,6 +1,9 @@
 package dev.filinhat.bikepressurecalc.presentation.screen
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,11 +26,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import dev.filin2hat.bikepressurecalc.R
 import dev.filinhat.bikepressurecalc.common.enums.TireSize
 import dev.filinhat.bikepressurecalc.common.enums.TireSize24Inches
 import dev.filinhat.bikepressurecalc.common.enums.TireSize26Inches
@@ -35,6 +45,8 @@ import dev.filinhat.bikepressurecalc.common.enums.TireSize29Inches
 import dev.filinhat.bikepressurecalc.common.enums.WheelSize
 import dev.filinhat.bikepressurecalc.presentation.ui.kit.DropdownMenu
 import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
+import dev.filinhat.bikepressurecalc.presentation.util.validateBikeWeight
+import dev.filinhat.bikepressurecalc.presentation.util.validateRiderWeight
 import kotlinx.collections.immutable.toPersistentList
 
 @Composable
@@ -71,11 +83,17 @@ private fun PressureCalculatorScreen(
         tireSize: TireSize
     ) -> Unit = { _, _, _, _ -> }
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     val context = LocalContext.current
-    var riderWeight by rememberSaveable { mutableStateOf("0.0") }
-    var bikeWeight by rememberSaveable { mutableStateOf("0.0") }
-    var wheelSize by rememberSaveable { mutableStateOf(WheelSize.entries.first()) }
+    var riderWeight: String by rememberSaveable { mutableStateOf("") }
+    var bikeWeight: String by rememberSaveable { mutableStateOf("") }
+    var wheelSize: WheelSize? by rememberSaveable { mutableStateOf(null) }
     var tireSize: TireSize? by rememberSaveable { mutableStateOf(null) }
+    var wrongRiderWeight by rememberSaveable { mutableStateOf(false) }
+    var wrongBikeWeight by rememberSaveable { mutableStateOf(false) }
+
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
     when (uiState) {
         PressureCalculatorViewModel.UiState.Loading -> {
@@ -101,58 +119,112 @@ private fun PressureCalculatorScreen(
             ) {
                 OutlinedTextField(
                     value = riderWeight,
-                    onValueChange = { riderWeight = it },
-                    label = { Text("Вес велосипедиста (кг)") },
-                    modifier = Modifier.fillMaxWidth()
+                    onValueChange = {
+                        riderWeight = if (it.startsWith("0")) {
+                            it.trimStart('0')
+                        } else {
+                            it
+                        }
+                        wrongRiderWeight = !validateRiderWeight(riderWeight)
+                    },
+                    label = { Text(stringResource(R.string.rider_weight_kg)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = wrongRiderWeight,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
+                if (wrongRiderWeight) {
+                    Text(
+                        text = stringResource(R.string.rider_weight_incorrect),
+                        color = MaterialTheme.colorScheme.error,
+                        fontSize = 12.sp
+                    )
+                }
 
                 OutlinedTextField(
                     value = bikeWeight,
-                    onValueChange = { bikeWeight = it },
-                    label = { Text("Вес велосипеда (кг)") },
-                    modifier = Modifier.fillMaxWidth()
+                    onValueChange = {
+                        bikeWeight = if (it.startsWith("0")) {
+                            it.trimStart('0')
+                        } else {
+                            it
+                        }
+                        wrongBikeWeight = !validateBikeWeight(bikeWeight)
+                    },
+                    label = { Text(stringResource(R.string.bike_weight_kg)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = wrongBikeWeight,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
+                if (wrongBikeWeight) {
+                    Text(
+                        text = stringResource(R.string.bike_weight_incorrect),
+                        color = MaterialTheme.colorScheme.error,
+                        fontSize = 12.sp
+                    )
+                }
 
                 DropdownMenu(
                     onItemSelected = {
+                        if (it != wheelSize) {
+                            tireSize = null
+                            expanded = false
+                        }
                         wheelSize = it
-                        tireSize = null
+                        expanded = true
                     },
-                    label = "Размер колеса (дюймы)",
+                    label = stringResource(R.string.wheel_size),
                     items = WheelSize.entries.toPersistentList(),
                     value = wheelSize,
                     modifier = Modifier.fillMaxWidth(),
                     itemLabel = { it?.nameSize }
                 )
 
-                DropdownMenu(
-                    onItemSelected = { tireSize = it },
-                    label = "Размер покрышки",
-                    items =
-                    when (wheelSize) {
-                        WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
-                        WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
-                        WheelSize.Inches275 -> TireSize275Inches.entries.toPersistentList()
-                        WheelSize.Inches28 -> TireSize28Inches.entries.toPersistentList()
-                        WheelSize.Inches29 -> TireSize29Inches.entries.toPersistentList()
-                    },
-                    value = tireSize,
-                    modifier = Modifier.fillMaxWidth(),
-                    itemLabel = { it?.nameSize }
-                )
+                AnimatedVisibility(
+                    visible = expanded,
+                    enter = expandVertically(),
+                    exit = shrinkVertically()
+                ) {
+                    DropdownMenu(
+                        onItemSelected = { tireSize = it },
+                        label = stringResource(R.string.tire_size),
+                        items =
+                        when (wheelSize) {
+                            WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
+                            WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
+                            WheelSize.Inches275 -> TireSize275Inches.entries.toPersistentList()
+                            WheelSize.Inches28 -> TireSize28Inches.entries.toPersistentList()
+                            WheelSize.Inches29 -> TireSize29Inches.entries.toPersistentList()
+                            else -> null
+                        },
+                        value = tireSize,
+                        modifier = Modifier.fillMaxWidth(),
+                        itemLabel = { it?.nameSize }
+                    )
+
+                }
 
                 Button(
                     onClick = {
                         onCalcPressure(
                             bikeWeight.toDouble(),
                             riderWeight.toDouble(),
-                            wheelSize,
+                            wheelSize ?: return@Button,
                             tireSize ?: return@Button
                         )
+                        keyboardController?.hide()
+                        focusManager.clearFocus()
                     },
+                    enabled = validateIfEmpty(
+                        wrongRiderWeight,
+                        wrongBikeWeight,
+                        wheelSize,
+                        tireSize,
+                        riderWeight,
+                        bikeWeight
+                    ),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Рассчитать давление")
+                    Text(stringResource(R.string.calculate_pressure))
                 }
 
                 Text(
@@ -168,11 +240,26 @@ private fun PressureCalculatorScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Composable
+private fun validateIfEmpty(
+    wrongRiderWeight: Boolean,
+    wrongBikeWeight: Boolean,
+    wheelSize: WheelSize?,
+    tireSize: TireSize?,
+    riderWeight: String,
+    bikeWeight: String
+) = !wrongRiderWeight && !wrongBikeWeight && wheelSize != null &&
+        tireSize != null && riderWeight.isNotEmpty() && bikeWeight.isNotEmpty()
+
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun PressureCalculatorScreenPreview() {
     ApplicationTheme {
         PressureCalculatorScreen(
+            uiState = PressureCalculatorViewModel.UiState.Success(
+                result = Pair(4.0, 4.2)
+            ),
+            onCalcPressure = { _, _, _, _ -> },
             modifier = Modifier
         )
     }

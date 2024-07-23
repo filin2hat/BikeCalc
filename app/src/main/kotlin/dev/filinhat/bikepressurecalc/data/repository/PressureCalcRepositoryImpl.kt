@@ -2,7 +2,6 @@ package dev.filinhat.bikepressurecalc.data.repository
 
 import dev.filinhat.bikepressurecalc.common.enums.TireSize
 import dev.filinhat.bikepressurecalc.common.enums.WheelSize
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -14,7 +13,6 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
         wheelSize: WheelSize,
         tireSize: TireSize
     ): Flow<Pair<Double, Double>> = flow {
-        delay(500)
         val (frontPressure, rearPressure) =
             when (wheelSize) {
                 WheelSize.Inches28 -> {
