@@ -1,7 +1,7 @@
-package dev.filinhat.bikepressurecalc.app
+package dev.filinhat.bikepressurecalc
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class Application : Application()
+class App : Application()

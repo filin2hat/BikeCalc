@@ -12,6 +12,7 @@ import dev.filinhat.bikepressurecalc.presentation.util.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class PressureCalculatorViewModel @Inject constructor(
     private val repository: PressureCalcRepository
 ) : BaseViewModel<UiState, UiEvent>, ViewModel() {
 
-    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+    private val _uiState = MutableStateFlow<UiState>(UiState.Success(0.0 to 0.0))
     override val uiState = _uiState.asStateFlow()
         .stateIn(
             scope = viewModelScope,
@@ -49,14 +50,13 @@ class PressureCalculatorViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-            try {
-                repository.calcPressure(riderWeight, bikeWeight, wheelSize, tireSize).collect {
-                    _uiState.value = UiState.Success(result = it)
+            repository.calcPressure(riderWeight, bikeWeight, wheelSize, tireSize)
+                .catch { e ->
+                    _uiState.value = UiState.Error("Указаны не корректные данные для расчета.")
                 }
-            } catch (e: Exception) {
-                _uiState.value =
-                    UiState.Error(message = "Указаны не корректные данные для расчета.")
-            }
+                .collect { result ->
+                    _uiState.value = UiState.Success(result)
+                }
         }
     }
 

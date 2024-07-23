@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -57,6 +59,7 @@ dependencies {
 
     implementation(libs.kotlinx.collections.immutable)
 
+
     // UI
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -64,10 +67,13 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Hilt
     implementation (libs.dagger.hilt)
-    annotationProcessor (libs.dagger.hilt.compiller)
+    kapt (libs.dagger.hilt.compiller)
+
+    implementation(libs.hilt.navigation.compose)
 }
