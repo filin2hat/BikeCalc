@@ -1,10 +1,12 @@
 <resources>
-    <string name="app_name">Bike Pressure Calc</string>
-    <string name="rider_weight_kg">Вес велосипедиста (кг)</string>
-    <string name="rider_weight_incorrect">Укажите корректный вес велосипедиста</string>
-    <string name="bike_weight_kg">Вес велосипеда (кг)</string>
-    <string name="bike_weight_incorrect">Укажите корректный вес велосипеда</string>
-    <string name="wheel_size">Размер колеса</string>
-    <string name="tire_size">Размер покрышки</string>
-    <string name="calculate_pressure">Рассчитать давление</string>
+    <string name="app_name">Bicycle Calc</string>
+    <string name="rider_weight_kg">Rider weight (kg)</string>
+    <string name="weight_incorrect">Incorrect weight entered</string>
+    <string name="bike_weight_kg">Bike weight (kg)</string>
+    <string name="wheel_size">Wheel size</string>
+    <string name="tire_size">Tire size</string>
+    <string name="calculate_pressure">Calculate pressure</string>
+    <string name="app_bar_title">Tire pressure calculator</string>
+    <string name="front_wheel_pressure">Front wheel pressure:</string>
+    <string name="rear_wheel_pressure">Rear wheel pressure:</string>
 </resources>

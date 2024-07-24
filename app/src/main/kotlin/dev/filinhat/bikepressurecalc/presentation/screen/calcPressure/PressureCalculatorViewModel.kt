@@ -1,4 +1,4 @@
-package dev.filinhat.bikepressurecalc.presentation.screen
+package dev.filinhat.bikepressurecalc.presentation.screen.calcPressure
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.filinhat.bikepressurecalc.common.enums.TireSize
 import dev.filinhat.bikepressurecalc.common.enums.WheelSize
 import dev.filinhat.bikepressurecalc.data.repository.PressureCalcRepository
-import dev.filinhat.bikepressurecalc.presentation.screen.PressureCalculatorViewModel.UiEvent
-import dev.filinhat.bikepressurecalc.presentation.screen.PressureCalculatorViewModel.UiState
+import dev.filinhat.bikepressurecalc.presentation.screen.calcPressure.PressureCalculatorViewModel.UiEvent
+import dev.filinhat.bikepressurecalc.presentation.screen.calcPressure.PressureCalculatorViewModel.UiState
 import dev.filinhat.bikepressurecalc.presentation.util.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

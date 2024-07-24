@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,9 +62,17 @@ fun <T> DropdownMenu(
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isMenuExpanded)
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(
-                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary
+                textStyle = MaterialTheme.typography.bodyLarge,
+                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedLabelColor = MaterialTheme.colorScheme.inversePrimary,
+                    unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
+                    focusedLabelColor = MaterialTheme.colorScheme.primary,
+                    focusedTextColor = MaterialTheme.colorScheme.primary,
+                    focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
+                    unfocusedTrailingIconColor = MaterialTheme.colorScheme.inversePrimary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary
                 ),
                 modifier = Modifier
                     .menuAnchor()
@@ -80,7 +89,17 @@ fun <T> DropdownMenu(
                             onItemSelected(item)
                             isMenuExpanded = false
                         },
-                        text = { itemLabel(item as T)?.let { Text(it) } },
+                        text = {
+                            itemLabel(item as T)?.let {
+                                Text(
+                                    text = it,
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
+                        },
+                        colors = MenuDefaults.itemColors(
+                            textColor = MaterialTheme.colorScheme.primary
+                        ),
                     )
                 }
             }

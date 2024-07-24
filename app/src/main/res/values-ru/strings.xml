@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Калькулятор давления велосипеда</string>
+    <string name="app_name">Велокалькулятор</string>
+    <string name="rider_weight_kg">Вес велосипедиста (кг)</string>
+    <string name="weight_incorrect">Указан не корректный вес</string>
+    <string name="bike_weight_kg">Вес велосипеда (кг)</string>
+    <string name="wheel_size">Размер колеса</string>
+    <string name="tire_size">Размер покрышки</string>
+    <string name="calculate_pressure">Рассчитать давление</string>
+    <string name="app_bar_title">Калькулятор давления шин</string>
+    <string name="front_wheel_pressure">Давление переднего колеса:</string>
+    <string name="rear_wheel_pressure">Давление заднего колеса:</string>
 </resources>
