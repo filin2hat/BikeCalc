@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Bicycle Calc</string>
-    <string name="rider_weight_kg">Rider weight (kg)</string>
+    <string name="rider_weight_kg">Your weight (kg)</string>
     <string name="weight_incorrect">Incorrect weight entered</string>
     <string name="bike_weight_kg">Bike weight (kg)</string>
     <string name="wheel_size">Wheel size</string>
@@ -9,4 +9,10 @@
     <string name="app_bar_title">Tire pressure calculator</string>
     <string name="front_wheel_pressure">Front wheel pressure:</string>
     <string name="rear_wheel_pressure">Rear wheel pressure:</string>
+    <string name="bar">%1$s bar</string>
+    <string name="atm">%1$s atm</string>
+    <string name="psi">%1$s psi</string>
+    <string name="bar_btn">bar</string>
+    <string name="atm_btn">atm</string>
+    <string name="psi_btn">psi</string>
 </resources>

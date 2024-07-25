@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import dev.filinhat.bikepressurecalc.presentation.ui.theme.ApplicationTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -57,7 +58,12 @@ fun <T> DropdownMenu(
             OutlinedTextField(
                 value = itemLabel(value) ?: itemLabel(selectedItem) ?: "",
                 onValueChange = {},
-                label = { Text(label) },
+                label = {
+                    Text(
+                        text = label,
+                        fontSize = 14.sp
+                    )
+                },
                 readOnly = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isMenuExpanded)

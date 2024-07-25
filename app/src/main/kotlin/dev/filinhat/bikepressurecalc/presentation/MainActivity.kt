@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis,
                                     style = MaterialTheme.typography.titleLarge,
-                                    color = MaterialTheme.colorScheme.primary
+                                    color = MaterialTheme.colorScheme.primary,
                                 )
                             },
                             actions = {
@@ -55,8 +56,10 @@ class MainActivity : ComponentActivity() {
                                         keyboardController?.hide()
                                         focusManager.clearFocus()
                                     },
-                                    colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary),
-                                    modifier = Modifier.padding(end = 16.dp)
+                                    colors = IconButtonDefaults.iconButtonColors(
+                                        contentColor = MaterialTheme.colorScheme.primary
+                                    ),
+                                    modifier = Modifier.size(48.dp)
                                 ) {
                                     Icon(
                                         imageVector = Icons.Outlined.Info,
@@ -68,7 +71,7 @@ class MainActivity : ComponentActivity() {
                                 containerColor = MaterialTheme.colorScheme.background
                             ),
 
-                        )
+                            )
                     },
                     containerColor = MaterialTheme.colorScheme.background,
                     modifier = Modifier
