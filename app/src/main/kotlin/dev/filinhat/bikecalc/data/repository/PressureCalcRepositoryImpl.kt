@@ -66,7 +66,7 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
         bikeWeight: Double,
         wheelSize: Double,
         tireSize: Double
-    ): Double = ((riderWeight * 0.5 + bikeWeight * 0.5) / (wheelSize * tireSize)) *
+    ): Double = ((riderWeight * mtbFrontFactor + bikeWeight * mtbFrontFactor) / (wheelSize * tireSize)) *
             mtbFrontEmpiricalCoefficient
 
     private fun mtbRearPressure(
@@ -74,7 +74,7 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
         bikeWeight: Double,
         wheelSize: Double,
         tireSize: Double
-    ): Double = ((riderWeight * 0.6 + bikeWeight * 0.6) / (wheelSize * tireSize)) *
+    ): Double = ((riderWeight * mtbRearFactor + bikeWeight * mtbRearFactor) / (wheelSize * tireSize)) *
             mtbRearEmpiricalCoefficient
 
     private fun roadFrontPressure(
@@ -82,7 +82,7 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
         bikeWeight: Double,
         wheelSize: Double,
         tireSize: Double
-    ): Double = ((riderWeight * 0.45 + bikeWeight * 0.45) / (wheelSize * tireSize)) *
+    ): Double = ((riderWeight * roadFrontFactor + bikeWeight * roadFrontFactor) / (wheelSize * tireSize)) *
             roadFrontEmpiricalCoefficient
 
     private fun roadRearPressure(
@@ -90,7 +90,7 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
         bikeWeight: Double,
         wheelSize: Double,
         tireSize: Double
-    ): Double = ((riderWeight * 0.55 + bikeWeight * 0.55) / (wheelSize * tireSize)) *
+    ): Double = ((riderWeight * roadRearFactor + bikeWeight * roadRearFactor) / (wheelSize * tireSize)) *
             roadRearEmpiricalCoefficient
 }
 
@@ -101,7 +101,15 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
  * Для MTB велосипедов его значение находится в диапазоне от 50 до 100.
  * Для шоссейных велосипедов его значение находится в диапазоне от 100 до 150.
  */
-const val mtbFrontEmpiricalCoefficient = 71
-const val mtbRearEmpiricalCoefficient = 65
-const val roadFrontEmpiricalCoefficient = 120
-const val roadRearEmpiricalCoefficient = 120
+private const val mtbFrontEmpiricalCoefficient = 71
+private const val mtbRearEmpiricalCoefficient = 65
+
+private const val roadFrontEmpiricalCoefficient = 120
+private const val roadRearEmpiricalCoefficient = 120
+
+
+private const val mtbFrontFactor = 0.5
+private const val mtbRearFactor = 0.585
+
+private const val roadFrontFactor = 0.42
+private const val roadRearFactor =  0.445
