@@ -79,3 +79,8 @@ deploymentTargetDropDown.xml
 render.experimental.xml
 google-services.json
 *.hprof
+!/release/
+!/release/baselineProfiles/
+/release/baselineProfiles/0/app-release.dm
+/release/baselineProfiles/1/app-release.dm
+/release/output-metadata.json
