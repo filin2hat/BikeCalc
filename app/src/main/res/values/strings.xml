@@ -15,4 +15,11 @@
     <string name="bar_btn">bar</string>
     <string name="atm_btn">atm</string>
     <string name="psi_btn">psi</string>
+    <string name="i_understand_this">I understand this</string>
+    <string name="dialog_title">Some Information</string>
+    <string name="dialog_text_chapter_one">Calculation results presented in the application are not absolutely accurate and may differ from ideal values as they are based on the following sources:</string>
+    <string name="dialog_text_chapter_two">1. Publicly available data provided by bicycle tire manufacturers.</string>
+    <string name="dialog_text_chapter_three">2. Information from research articles on the topic of bicycle tire pressure.</string>
+    <string name="dialog_text_chapter_four">3. Personal experience and practical observations.</string>
+    <string name="dialog_text_end">It is recommended to use the calculation results as approximate values and always verify the data before use.</string>
 </resources>
