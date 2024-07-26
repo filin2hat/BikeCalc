@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Велокалькулятор</string>
+    <string name="app_name">Вело Калькулятор</string>
     <string name="rider_weight_kg">Ваш вес (кг)</string>
     <string name="weight_incorrect">Указан не корректный вес</string>
     <string name="bike_weight_kg">Вес велосипеда (кг)</string>
