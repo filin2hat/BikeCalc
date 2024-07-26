@@ -243,6 +243,7 @@ private fun PressureCardPreview() {
         )
     }
 }
+
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun PressureCardDarkPreview() {

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BikePressureCalc"
+rootProject.name = "BikeCalc"
 include(":app")
