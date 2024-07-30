@@ -43,25 +43,27 @@ fun InfoDialog(
                 icon,
                 contentDescription = "",
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .rotate(180f)
-                    .size(36.dp)
+                modifier =
+                    Modifier
+                        .rotate(180f)
+                        .size(36.dp),
             )
         },
         title = {
             Text(
                 text = dialogTitle,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
             )
         },
         text = {
             Column(
-                modifier = Modifier
-                    .verticalScroll(rememberScrollState())
+                modifier =
+                    Modifier
+                        .verticalScroll(rememberScrollState()),
             ) {
                 Text(
                     text = dialogText,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         },
@@ -69,7 +71,7 @@ fun InfoDialog(
             TextButton(
                 onClick = {
                     onCloseDialog()
-                }
+                },
             ) {
                 Text(stringResource(R.string.i_understand_this))
             }
@@ -86,7 +88,7 @@ private fun InfoDialogPreview() {
             onCloseDialog = {},
             dialogTitle = "Header example",
             dialogText = "Any text with information or warnings for the user.",
-            icon = Icons.Default.Info
+            icon = Icons.Default.Info,
         )
     }
 }
@@ -99,7 +101,7 @@ private fun InfoDialogDarkPreview() {
             onCloseDialog = {},
             dialogTitle = "Header example",
             dialogText = "Any text with information or warnings for the user.",
-            icon = Icons.Default.Info
+            icon = Icons.Default.Info,
         )
     }
 }

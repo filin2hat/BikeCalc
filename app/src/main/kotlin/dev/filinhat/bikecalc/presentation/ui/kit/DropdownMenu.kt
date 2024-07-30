@@ -42,18 +42,18 @@ fun <T> DropdownMenu(
     items: PersistentList<Any>?,
     value: T?,
     modifier: Modifier = Modifier,
-    itemLabel: (T?) -> String?
+    itemLabel: (T?) -> String?,
 ) where T : Any {
     var isMenuExpanded by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf(value) }
 
     Box(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     ) {
         ExposedDropdownMenuBox(
             expanded = isMenuExpanded,
             onExpandedChange = { isMenuExpanded = it },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             OutlinedTextField(
                 value = itemLabel(value) ?: itemLabel(selectedItem) ?: "",
@@ -61,7 +61,7 @@ fun <T> DropdownMenu(
                 label = {
                     Text(
                         text = label,
-                        fontSize = 14.sp
+                        fontSize = 14.sp,
                     )
                 },
                 readOnly = true,
@@ -69,24 +69,26 @@ fun <T> DropdownMenu(
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isMenuExpanded)
                 },
                 textStyle = MaterialTheme.typography.bodyLarge,
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    focusedContainerColor = MaterialTheme.colorScheme.background,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                    unfocusedLabelColor = MaterialTheme.colorScheme.inversePrimary,
-                    unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
-                    focusedLabelColor = MaterialTheme.colorScheme.primary,
-                    focusedTextColor = MaterialTheme.colorScheme.primary,
-                    focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
-                    unfocusedTrailingIconColor = MaterialTheme.colorScheme.inversePrimary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary
-                ),
-                modifier = Modifier
-                    .menuAnchor()
-                    .fillMaxWidth()
+                colors =
+                    ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedLabelColor = MaterialTheme.colorScheme.inversePrimary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
+                        focusedLabelColor = MaterialTheme.colorScheme.primary,
+                        focusedTextColor = MaterialTheme.colorScheme.primary,
+                        focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
+                        unfocusedTrailingIconColor = MaterialTheme.colorScheme.inversePrimary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
+                    ),
+                modifier =
+                    Modifier
+                        .menuAnchor()
+                        .fillMaxWidth(),
             )
             ExposedDropdownMenu(
                 expanded = isMenuExpanded,
-                onDismissRequest = { isMenuExpanded = false }
+                onDismissRequest = { isMenuExpanded = false },
             ) {
                 items?.forEach { item ->
                     DropdownMenuItem(
@@ -99,13 +101,14 @@ fun <T> DropdownMenu(
                             itemLabel(item as T)?.let {
                                 Text(
                                     text = it,
-                                    style = MaterialTheme.typography.bodyLarge
+                                    style = MaterialTheme.typography.bodyLarge,
                                 )
                             }
                         },
-                        colors = MenuDefaults.itemColors(
-                            textColor = MaterialTheme.colorScheme.primary
-                        ),
+                        colors =
+                            MenuDefaults.itemColors(
+                                textColor = MaterialTheme.colorScheme.primary,
+                            ),
                     )
                 }
             }
@@ -127,11 +130,12 @@ private fun PreviewDropdownMenu() {
             items = persistentListOf(),
             onItemSelected = { },
             label = "Label",
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
             value = "",
-            itemLabel = { item -> item.toString() }
+            itemLabel = { item -> item.toString() },
         )
     }
 }

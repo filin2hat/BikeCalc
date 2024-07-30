@@ -47,32 +47,36 @@ const val CardHeight = 135
 fun PressureCard(
     value: Double,
     wheel: Wheel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var pressureUnits by rememberSaveable { mutableStateOf(PressureUnits.BAR) }
 
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        modifier = modifier
-            .fillMaxWidth()
-            .height(CardHeight.dp),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+            ),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(CardHeight.dp),
         border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary),
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
         ) {
             Column {
                 Text(
-                    text = when (wheel) {
-                        Wheel.Front -> stringResource(R.string.front_wheel_pressure)
-                        Wheel.Rear -> stringResource(R.string.rear_wheel_pressure)
-                    },
+                    text =
+                        when (wheel) {
+                            Wheel.Front -> stringResource(R.string.front_wheel_pressure)
+                            Wheel.Rear -> stringResource(R.string.rear_wheel_pressure)
+                        },
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.padding(bottom = 8.dp),
                     color = MaterialTheme.colorScheme.background,
@@ -81,30 +85,34 @@ fun PressureCard(
                     style = MaterialTheme.typography.displayLarge,
                     color = MaterialTheme.colorScheme.background,
                     text =
-                    when (pressureUnits) {
-                        PressureUnits.BAR -> stringResource(
-                            R.string.bar,
-                            formatValue(value)
-                        )
+                        when (pressureUnits) {
+                            PressureUnits.BAR ->
+                                stringResource(
+                                    R.string.bar,
+                                    formatValue(value),
+                                )
 
-                        PressureUnits.ATM -> stringResource(
-                            R.string.atm,
-                            formatValue(value.barToAtm())
-                        )
+                            PressureUnits.ATM ->
+                                stringResource(
+                                    R.string.atm,
+                                    formatValue(value.barToAtm()),
+                                )
 
-                        PressureUnits.PSI -> stringResource(
-                            R.string.psi,
-                            formatValue(value.barToPsi(), 0)
-                        )
-                    }
+                            PressureUnits.PSI ->
+                                stringResource(
+                                    R.string.psi,
+                                    formatValue(value.barToPsi(), 0),
+                                )
+                        },
                 )
             }
 
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(8.dp)
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .padding(8.dp),
             ) {
                 when (pressureUnits) {
                     PressureUnits.BAR -> {
@@ -113,15 +121,16 @@ fun PressureCard(
                                 pressureUnits = PressureUnits.ATM
                             },
                             modifier = Modifier.width(ButtonWidth.dp),
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            ),
-                            shape = MaterialTheme.shapes.medium
+                            border =
+                                BorderStroke(
+                                    width = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                ),
+                            shape = MaterialTheme.shapes.medium,
                         ) {
                             Text(
                                 text = stringResource(id = R.string.atm_btn),
-                                style = MaterialTheme.typography.labelLarge
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                         ElevatedButton(
@@ -129,15 +138,16 @@ fun PressureCard(
                                 pressureUnits = PressureUnits.PSI
                             },
                             modifier = Modifier.width(ButtonWidth.dp),
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            ),
+                            border =
+                                BorderStroke(
+                                    width = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                ),
                             shape = MaterialTheme.shapes.medium,
                         ) {
                             Text(
                                 text = stringResource(id = R.string.psi_btn),
-                                style = MaterialTheme.typography.labelLarge
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                     }
@@ -148,15 +158,16 @@ fun PressureCard(
                                 pressureUnits = PressureUnits.BAR
                             },
                             modifier = Modifier.width(ButtonWidth.dp),
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            ),
-                            shape = MaterialTheme.shapes.medium
+                            border =
+                                BorderStroke(
+                                    width = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                ),
+                            shape = MaterialTheme.shapes.medium,
                         ) {
                             Text(
                                 text = stringResource(id = R.string.bar_btn),
-                                style = MaterialTheme.typography.labelLarge
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                         ElevatedButton(
@@ -164,15 +175,16 @@ fun PressureCard(
                                 pressureUnits = PressureUnits.PSI
                             },
                             modifier = Modifier.width(ButtonWidth.dp),
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            ),
+                            border =
+                                BorderStroke(
+                                    width = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                ),
                             shape = MaterialTheme.shapes.medium,
                         ) {
                             Text(
                                 text = stringResource(id = R.string.psi_btn),
-                                style = MaterialTheme.typography.labelLarge
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                     }
@@ -183,15 +195,16 @@ fun PressureCard(
                                 pressureUnits = PressureUnits.ATM
                             },
                             modifier = Modifier.width(ButtonWidth.dp),
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            ),
-                            shape = MaterialTheme.shapes.medium
+                            border =
+                                BorderStroke(
+                                    width = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                ),
+                            shape = MaterialTheme.shapes.medium,
                         ) {
                             Text(
                                 text = stringResource(id = R.string.atm_btn),
-                                style = MaterialTheme.typography.labelLarge
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                         ElevatedButton(
@@ -199,15 +212,16 @@ fun PressureCard(
                                 pressureUnits = PressureUnits.BAR
                             },
                             modifier = Modifier.width(ButtonWidth.dp),
-                            border = BorderStroke(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            ),
+                            border =
+                                BorderStroke(
+                                    width = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary,
+                                ),
                             shape = MaterialTheme.shapes.medium,
                         ) {
                             Text(
                                 text = stringResource(id = R.string.bar_btn),
-                                style = MaterialTheme.typography.labelLarge
+                                style = MaterialTheme.typography.labelLarge,
                             )
                         }
                     }
@@ -217,21 +231,19 @@ fun PressureCard(
     }
 }
 
-private fun formatValue(value: Double, decimalPlaces: Int = 1): String {
-    return String.format(
+private fun formatValue(
+    value: Double,
+    decimalPlaces: Int = 1,
+): String =
+    String.format(
         "%.${decimalPlaces}f",
-        ceil(value * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces)
+        ceil(value * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces),
     )
-}
 
 // Conversion functions
-private fun Double.barToAtm(): Double {
-    return this / 1.01325
-}
+private fun Double.barToAtm(): Double = this / 1.01325
 
-private fun Double.barToPsi(): Double {
-    return (this * 14.5038).roundToInt().toDouble()
-}
+private fun Double.barToPsi(): Double = (this * 14.5038).roundToInt().toDouble()
 
 @Preview(showBackground = true)
 @Composable
@@ -239,7 +251,7 @@ private fun PressureCardPreview() {
     ApplicationTheme {
         PressureCard(
             wheel = Wheel.Front,
-            value = 10.54654564
+            value = 10.54654564,
         )
     }
 }
@@ -250,7 +262,7 @@ private fun PressureCardDarkPreview() {
     ApplicationTheme {
         PressureCard(
             wheel = Wheel.Front,
-            value = 10.54654564
+            value = 10.54654564,
         )
     }
 }
