@@ -6,6 +6,7 @@ package dev.filinhat.bikecalc.common.enums.wheel
  * @param nameSize название размера в дюймах и диаметр по стандарту ISO
  * @param inchesSize диаметр в дюймах
  */
+@Suppress("MagicNumber")
 enum class WheelSize(
     val nameSize: String,
     val inchesSize: Double,

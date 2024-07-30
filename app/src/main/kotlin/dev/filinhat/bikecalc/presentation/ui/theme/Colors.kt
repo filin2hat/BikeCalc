@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package dev.filinhat.bikecalc.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color

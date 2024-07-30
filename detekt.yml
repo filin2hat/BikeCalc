@@ -1,0 +1,115 @@
+# The naming ruleset contains rules which assert the naming of different parts of the codebase.
+naming:
+
+  # Reports top level constant that which do not follow the specified naming convention.
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+
+  # Reports function names that do not follow the specified naming convention.
+  # One exception are factory functions used to create instances of classes.
+  # These factory functions can have the same name as the class being created.
+  FunctionNaming:
+    ignoreAnnotated:
+      - 'Composable'
+
+
+
+# The Style ruleset provides rules that assert the style of the code.
+# This will help keep code in line with the given code style guidelines.
+style:
+
+  # This rule detects and reports usages of magic numbers in the code.
+  # Prefer defining constants with clear names describing what the magic number means.
+  MagicNumber:
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+
+  # Reports unused private functions.
+  #
+  # If these private functions are unused they should be removed.
+  # Otherwise, this dead code can lead to confusion and potential bugs.
+  UnusedPrivateMember:
+    ignoreAnnotated:
+      - 'Preview'
+      - 'PreviewScreenSizes'
+
+
+
+# This rule set contains rules that report complex code.
+complexity:
+
+  # Methods should have one responsibility.
+  # Long methods can indicate that a method handles too many cases at once.
+  # Prefer smaller methods with clear names that describe their functionality clearly.
+  #
+  # Extract parts of the functionality of long methods into separate, smaller methods.
+  LongMethod:
+    ignoreAnnotated:
+      - 'Composable'
+
+  # This rule reports files, classes, interfaces, objects and enums which contain too many functions.
+  # Each element can be configured with different thresholds.
+  #
+  # Too many functions indicate a violation of the single responsibility principle.
+  # Prefer extracting functionality which clearly belongs together in separate parts of the code.
+  TooManyFunctions:
+    ignoreAnnotated:
+      - 'Preview'
+
+  # Reports functions and constructors which have more parameters than a certain threshold.
+  LongParameterList:
+    ignoreAnnotated:
+      - 'Composable'
+
+
+#Compose:
+#  ComposableAnnotationNaming:
+#    active: true
+#  ComposableNaming:
+#    active: true
+#  ComposableParamOrder:
+#    active: true
+#  CompositionLocalAllowlist:
+#    active: true
+#  CompositionLocalNaming:
+#    active: true
+#  ContentEmitterReturningValues:
+#    active: true
+#  DefaultsVisibility:
+#    active: true
+#  LambdaParameterInRestartableEffect:
+#    active: true
+#  ModifierClickableOrder:
+#    active: true
+#  ModifierComposable:
+#    active: true
+#  ModifierMissing:
+#    active: true
+#  ModifierNaming:
+#    active: true
+#  ModifierNotUsedAtRoot:
+#    active: true
+#  ModifierReused:
+#    active: true
+#  ModifierWithoutDefault:
+#    active: true
+#  MultipleEmitters:
+#    active: true
+#  MutableParams:
+#    active: true
+#  MutableStateParam:
+#    active: true
+#  PreviewAnnotationNaming:
+#    active: true
+#  PreviewPublic:
+#    active: true
+#  RememberMissing:
+#    active: true
+#  RememberContentMissing:
+#    active: true
+#  UnstableCollections:
+#    active: true
+#  ViewModelForwarding:
+#    active: true
+#  ViewModelInjection:
+#    active: true

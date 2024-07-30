@@ -87,6 +87,7 @@ internal fun PressureCalculatorScreen(
     )
 }
 
+@Suppress("CyclomaticComplexMethod", "MagicNumber")
 @Composable
 private fun PressureCalculatorScreen(
     uiState: PressureCalculatorViewModel.UiState,
@@ -300,8 +301,8 @@ private fun PressureCalculatorScreen(
                         label = stringResource(R.string.tire_size),
                         items =
                         when (wheelSize) {
-                            //WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
-                            //WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
+                            // WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
+                            // WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
                             WheelSize.Inches275 -> TireSize275Inches.entries.toPersistentList()
                             // WheelSize.Inches28 -> TireSize28Inches.entries.toPersistentList()
                             WheelSize.Inches29 -> TireSize29Inches.entries.toPersistentList()
@@ -313,7 +314,6 @@ private fun PressureCalculatorScreen(
                             .padding(bottom = 18.dp)
                             .fillMaxWidth(),
                     )
-
                 }
 
                 Button(
@@ -352,8 +352,6 @@ private fun PressureCalculatorScreen(
                 }
             }
         }
-
-        else -> Unit
     }
 }
 
@@ -366,8 +364,9 @@ private fun validateIfEmpty(
     riderWeight: String,
     bikeWeight: String
 ) = !wrongRiderWeight && !wrongBikeWeight && wheelSize != null &&
-        tireSize != null && riderWeight.isNotEmpty() && bikeWeight.isNotEmpty()
+    tireSize != null && riderWeight.isNotEmpty() && bikeWeight.isNotEmpty()
 
+@Suppress("MagicNumber", "UnusedPrivateMember")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun PressureCalculatorScreenPreview() {

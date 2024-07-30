@@ -3,6 +3,7 @@ package dev.filinhat.bikecalc.common.enums.tire
 /**
  * Список размеров для 29 дюймовых колес велосипеда.
  */
+@Suppress("MagicNumber")
 enum class TireSize29Inches(
     override val nameSize: String,
     override val tireWidthInInches: Double,

@@ -217,6 +217,7 @@ fun PressureCard(
     }
 }
 
+@Suppress("ImplicitDefaultLocale")
 private fun formatValue(value: Double, decimalPlaces: Int = 1): String {
     return String.format(
         "%.${decimalPlaces}f",
@@ -225,14 +226,17 @@ private fun formatValue(value: Double, decimalPlaces: Int = 1): String {
 }
 
 // Conversion functions
+@Suppress("MagicNumber")
 private fun Double.barToAtm(): Double {
     return this / 1.01325
 }
 
+@Suppress("MagicNumber")
 private fun Double.barToPsi(): Double {
     return (this * 14.5038).roundToInt().toDouble()
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showBackground = true)
 @Composable
 private fun PressureCardPreview() {
@@ -244,6 +248,7 @@ private fun PressureCardPreview() {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun PressureCardDarkPreview() {

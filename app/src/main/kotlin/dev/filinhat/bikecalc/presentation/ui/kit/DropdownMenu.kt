@@ -119,6 +119,7 @@ fun <T> DropdownMenu(
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(showBackground = true)
 @Composable
 private fun PreviewDropdownMenu() {

@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import dev.filin2hat.bikecalc.R
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 
+private const val Rotation = 180f
+
 /**
  * Информационное окно.
  *
@@ -44,7 +46,7 @@ fun InfoDialog(
                 contentDescription = "",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
-                    .rotate(180f)
+                    .rotate(Rotation)
                     .size(36.dp)
             )
         },
@@ -78,6 +80,7 @@ fun InfoDialog(
     )
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview
 @Composable
 private fun InfoDialogPreview() {
@@ -91,6 +94,7 @@ private fun InfoDialogPreview() {
     }
 }
 
+@Suppress("UnusedPrivateMember")
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun InfoDialogDarkPreview() {

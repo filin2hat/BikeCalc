@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -65,6 +66,14 @@ android {
         }
     }
 }
+detekt {
+    val configFile = file("$rootDir/detekt.yml")
+    config.setFrom(configFile)
+
+    autoCorrect = true
+    buildUponDefaultConfig = true
+    basePath = rootDir.absolutePath
+}
 
 dependencies {
 
@@ -84,6 +93,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Detekt
+    implementation(libs.detekt.compose)
+    implementation(libs.detekt.formatting)
 
     // Hilt
     implementation(libs.dagger.hilt)

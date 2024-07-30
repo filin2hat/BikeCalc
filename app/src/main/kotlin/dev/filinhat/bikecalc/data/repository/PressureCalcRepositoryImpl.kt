@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-
 class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository {
     override fun calcPressure(
         riderWeight: Double,
@@ -38,6 +37,7 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
         emit(frontPressure to rearPressure)
     }
 
+    @Suppress("LongParameterList")
     private fun calculatePressure(
         riderWeight: Double,
         bikeWeight: Double,
@@ -53,11 +53,12 @@ class PressureCalcRepositoryImpl @Inject constructor() : PressureCalcRepository 
         return ((riderWeight * factor + bikeWeight * factor) / (wheelSize * tireSize)) * empiricalCoefficient
     }
 
+    @Suppress("MagicNumber")
     private val pressureCoefficientsMap = mapOf(
-        //WheelSize.Inches24 to PressureCoefficients(0.50, 0.60, 70.0, 65.0),
+        // WheelSize.Inches24 to PressureCoefficients(0.50, 0.60, 70.0, 65.0),
         // WheelSize.Inches26 to PressureCoefficients(0.50, 0.60, 70.0, 65.0),
         WheelSize.Inches275 to PressureCoefficients(0.5, 0.6, 68.0, 62.5),
-        //WheelSize.Inches28 to PressureCoefficients(0.42, 0.445, 120.0, 120.0),
+        // WheelSize.Inches28 to PressureCoefficients(0.42, 0.445, 120.0, 120.0),
         WheelSize.Inches29 to PressureCoefficients(0.52, 0.60, 71.0, 65.0)
     )
 }
