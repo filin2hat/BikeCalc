@@ -38,11 +38,11 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun <T> DropdownMenu(
     onItemSelected: (T) -> Unit,
-    label: String,
-    items: PersistentList<Any>?,
+    items: PersistentList<T>?,
     value: T?,
-    modifier: Modifier = Modifier,
+    label: String,
     itemLabel: (T?) -> String?,
+    modifier: Modifier = Modifier,
 ) where T : Any {
     var isMenuExpanded by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf(value) }
@@ -93,12 +93,12 @@ fun <T> DropdownMenu(
                 items?.forEach { item ->
                     DropdownMenuItem(
                         onClick = {
-                            selectedItem = item as T
+                            selectedItem = item
                             onItemSelected(item)
                             isMenuExpanded = false
                         },
                         text = {
-                            itemLabel(item as T)?.let {
+                            itemLabel(item)?.let {
                                 Text(
                                     text = it,
                                     style = MaterialTheme.typography.bodyLarge,
