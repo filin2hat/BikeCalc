@@ -14,10 +14,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 interface AppModule {
-
     @Singleton
     @Binds
-    fun bindPressureCalcRepository(
-        pressureCalcRepositoryImpl: PressureCalcRepositoryImpl
-    ): PressureCalcRepository
+    fun bindPressureCalcRepository(pressureCalcRepositoryImpl: PressureCalcRepositoryImpl): PressureCalcRepository
 }

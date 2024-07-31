@@ -12,6 +12,6 @@ interface PressureCalcRepository {
         riderWeight: Double,
         bikeWeight: Double,
         wheelSize: WheelSize,
-        tireSize: TireSize
+        tireSize: TireSize,
     ): Flow<Pair<Double, Double>>
 }

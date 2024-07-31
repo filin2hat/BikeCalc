@@ -57,12 +57,13 @@ class MainActivity : ComponentActivity() {
                     InfoDialog(
                         onCloseDialog = { openInfoDialog = false },
                         dialogTitle = stringResource(R.string.dialog_title),
-                        dialogText = stringResource(R.string.dialog_text_chapter_one) + "\n\n" +
+                        dialogText =
+                            stringResource(R.string.dialog_text_chapter_one) + "\n\n" +
                                 stringResource(R.string.dialog_text_chapter_two) + "\n" +
                                 stringResource(R.string.dialog_text_chapter_three) + "\n" +
                                 stringResource(R.string.dialog_text_chapter_four) + "\n\n" +
                                 stringResource(R.string.dialog_text_end),
-                        icon = Icons.Default.Info
+                        icon = Icons.Default.Info,
                     )
                 }
 
@@ -76,8 +77,7 @@ class MainActivity : ComponentActivity() {
                                     overflow = TextOverflow.Ellipsis,
                                     style = MaterialTheme.typography.titleLarge,
                                     color = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier
-
+                                    modifier = Modifier,
                                 )
                             },
                             actions = {
@@ -87,43 +87,47 @@ class MainActivity : ComponentActivity() {
                                         focusManager.clearFocus()
                                         openInfoDialog = true
                                     },
-                                    colors = IconButtonDefaults.iconButtonColors(
-                                        contentColor = MaterialTheme.colorScheme.primary
-                                    ),
-                                    modifier = Modifier.size(48.dp)
+                                    colors =
+                                        IconButtonDefaults.iconButtonColors(
+                                            contentColor = MaterialTheme.colorScheme.primary,
+                                        ),
+                                    modifier = Modifier.size(48.dp),
                                 ) {
                                     Icon(
                                         imageVector = Icons.Outlined.Info,
-                                        contentDescription = null
+                                        contentDescription = null,
                                     )
                                 }
                             },
-                            colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.background
-                            ),
-                            modifier = Modifier
-                                .clickable {
-                                    keyboardController?.hide()
-                                    focusManager.clearFocus()
-                                    clickCounter++
-                                    if (clickCounter > 3) {
-                                        clickCounter = 0
-                                        Toast.makeText(
-                                            context,
-                                            getString(
-                                                R.string.app_version,
-                                                BuildConfig.VERSION_NAME
-                                            ),
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-
-                                }
+                            colors =
+                                TopAppBarDefaults.topAppBarColors(
+                                    containerColor = MaterialTheme.colorScheme.background,
+                                ),
+                            modifier =
+                                Modifier
+                                    .clickable {
+                                        keyboardController?.hide()
+                                        focusManager.clearFocus()
+                                        clickCounter++
+                                        if (clickCounter > 3) {
+                                            clickCounter = 0
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    getString(
+                                                        R.string.app_version,
+                                                        BuildConfig.VERSION_NAME,
+                                                    ),
+                                                    Toast.LENGTH_SHORT,
+                                                ).show()
+                                        }
+                                    },
                         )
                     },
                     containerColor = MaterialTheme.colorScheme.background,
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier =
+                        Modifier
+                            .fillMaxSize(),
                 ) { innerPadding ->
                     PressureCalculatorScreen(
                         modifier = Modifier.padding(innerPadding),

@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
  * @param UiEvent событие UI
  */
 interface BaseViewModel<UiState, UiEvent> {
-
     /**
      * Состояние UI.
      */

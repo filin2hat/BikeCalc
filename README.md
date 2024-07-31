@@ -4,13 +4,19 @@
 
 ## Overview
 
-**Bicycle Calc** is a user-friendly Android application designed to help cyclists accurately determine the optimal tire pressure for their bikes. By considering various factors such as rider weight, bike weight, and tire size, this app provides a convenient and reliable way to ensure your tires are always properly inflated.
+**Bicycle Calc** is a user-friendly Android application designed to help cyclists accurately
+determine the optimal tire pressure for their bikes. By considering various factors such as rider
+weight, bike weight, and tire size, this app provides a convenient and reliable way to ensure your
+tires are always properly inflated.
 
 ## Features
 
-- **Tire Pressure Calculation**: Easily calculate the recommended tire pressure for your bike based on rider and bike weight, wheel size, and tire size.
-- **Multiple Units Support**: Convert pressure values between bar, atm, and psi for greater flexibility.
-- **Real-time Validation**: Input fields validate data on-the-fly to ensure accuracy and prevent errors.
+- **Tire Pressure Calculation**: Easily calculate the recommended tire pressure for your bike based
+  on rider and bike weight, wheel size, and tire size.
+- **Multiple Units Support**: Convert pressure values between bar, atm, and psi for greater
+  flexibility.
+- **Real-time Validation**: Input fields validate data on-the-fly to ensure accuracy and prevent
+  errors.
 - **Clean and Intuitive UI**: A user-friendly interface that is easy to navigate and use.
 - **Dark Mode Support**: Enjoy a seamless experience with support for dark mode.
 
@@ -18,7 +24,8 @@
 
 1. **Input Rider and Bike Weight**: Enter the weight of the rider and the bike.
 2. **Select Wheel and Tire Size**: Choose the appropriate wheel and tire size for your bike.
-3. **Calculate Pressure**: Press the calculate button to get the recommended tire pressure for both front and rear wheels.
+3. **Calculate Pressure**: Press the calculate button to get the recommended tire pressure for both
+   front and rear wheels.
 
 ![Screenshot](link-to-your-screenshot.png)
 
@@ -32,7 +39,9 @@ The calculations provided by this app are based on the following sources:
 
 ## Disclaimer
 
-The calculation results presented in this app are not absolutely accurate and may differ from ideal values. They should be used as approximate guidelines, and it is recommended to always verify the data before use.
+The calculation results presented in this app are not absolutely accurate and may differ from ideal
+values. They should be used as approximate guidelines, and it is recommended to always verify the
+data before use.
 
 ## Installation
 
@@ -47,7 +56,8 @@ To install the Bicycle Calc, follow these steps:
 
 ## Contributing
 
-Contributions are welcome! If you have any suggestions or improvements, feel free to open an issue or create a pull request.
+Contributions are welcome! If you have any suggestions or improvements, feel free to open an issue
+or create a pull request.
 
 ## License
 
@@ -55,7 +65,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any questions or inquiries, please contact us at [biryulin.develop@gmail.com](mailto:biryulin.develop@gmail.com).
+For any questions or inquiries, please contact us
+at [biryulin.develop@gmail.com](mailto:biryulin.develop@gmail.com).
 
 ---
 
