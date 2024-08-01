@@ -11,7 +11,7 @@ enum class WheelSize(
     val inchesSize: Double,
 ) {
     // Inches24("24\" (ISO 507 - 540 mm)", 24.0),
-    // Inches26("26\" (ISO 559 - 590 mm)", 26.0),
+    Inches26("26\" (ISO 559 - 590 mm)", 26.0),
     Inches275("27.5\" (ISO 584 mm / 650B)", 27.5),
 
     // Inches28("28\" (ISO 622mm / 700C)", 28.0),
