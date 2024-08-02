@@ -49,6 +49,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.filin2hat.bikecalc.R
 import dev.filinhat.bikecalc.common.enums.tire.TireSize
+import dev.filinhat.bikecalc.common.enums.tire.TireSize24Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize26Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize275Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize28Inches
@@ -308,7 +309,7 @@ private fun PressureCalculatorScreen(
                         label = stringResource(R.string.tire_size),
                         items =
                             when (wheelSize) {
-                                // WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
+                                WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
                                 WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
                                 WheelSize.Inches275 -> TireSize275Inches.entries.toPersistentList()
                                 WheelSize.Inches28 -> TireSize28Inches.entries.toPersistentList()

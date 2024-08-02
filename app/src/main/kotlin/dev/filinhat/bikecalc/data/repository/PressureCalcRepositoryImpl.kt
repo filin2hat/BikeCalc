@@ -60,7 +60,7 @@ class PressureCalcRepositoryImpl
 
         private val pressureCoefficientsMap =
             mapOf(
-                // WheelSize.Inches24 to PressureCoefficients(0.50, 0.60, 70.0, 65.0),
+                WheelSize.Inches24 to PressureCoefficients(0.50, 0.60, 75.0, 65.0),
                 WheelSize.Inches26 to PressureCoefficients(0.49, 0.6, 65.0, 58.0),
                 WheelSize.Inches275 to PressureCoefficients(0.5, 0.6, 68.0, 62.5),
                 WheelSize.Inches28 to PressureCoefficients(0.42, 0.42, 83.0, 89.0),
