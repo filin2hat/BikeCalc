@@ -1,6 +1,5 @@
 package dev.filinhat.bikecalc.presentation.screen.calcPressure
 
-import android.app.Activity
 import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -17,9 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -33,7 +30,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -43,8 +39,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.ColorUtils
-import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.filin2hat.bikecalc.R
@@ -65,18 +59,13 @@ import kotlinx.collections.immutable.toPersistentList
  * Экран для расчета давления велосипеда.
  *
  * @param viewModel [PressureCalculatorViewModel]
- * @param modifier модификатор экрана
  */
 @Composable
-internal fun PressureCalculatorScreen(
-    viewModel: PressureCalculatorViewModel = hiltViewModel(),
-    modifier: Modifier,
-) {
+internal fun PressureCalculatorScreen(viewModel: PressureCalculatorViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     PressureCalculatorScreen(
         uiState = uiState,
-        modifier = modifier,
         onCalcPressure = { bikeWeight, riderWeight, wheelSize, tireSize ->
             viewModel.perform(
                 PressureCalculatorViewModel.UiEvent.CalcPressure(
@@ -93,7 +82,7 @@ internal fun PressureCalculatorScreen(
 @Composable
 private fun PressureCalculatorScreen(
     uiState: PressureCalculatorViewModel.UiState,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onCalcPressure: (
         bikeWeight: Double,
         riderWeight: Double,
@@ -116,18 +105,6 @@ private fun PressureCalculatorScreen(
     var expandedTireSize by rememberSaveable { mutableStateOf(false) }
     var expandedCalcResult by rememberSaveable { mutableStateOf(false) }
 
-    if (context is Activity) {
-        with(context.window) {
-            statusBarColor = MaterialTheme.colorScheme.background.toArgb()
-            navigationBarColor = MaterialTheme.colorScheme.background.toArgb()
-            val isLightBackground =
-                ColorUtils.calculateLuminance(MaterialTheme.colorScheme.background.toArgb()) > 0.5
-            val windowInsetsController = WindowCompat.getInsetsController(this, this.decorView)
-            windowInsetsController.isAppearanceLightStatusBars = isLightBackground
-            windowInsetsController.isAppearanceLightNavigationBars = isLightBackground
-        }
-    }
-
     when (uiState) {
         PressureCalculatorViewModel.UiState.Loading -> {
             Box(
@@ -146,13 +123,7 @@ private fun PressureCalculatorScreen(
         }
 
         is PressureCalculatorViewModel.UiState.Success -> {
-            Column(
-                modifier =
-                    modifier
-                        .verticalScroll(rememberScrollState())
-                        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
-                        .fillMaxSize(),
-            ) {
+            Column(modifier = modifier.fillMaxSize()) {
                 AnimatedVisibility(
                     visible = expandedCalcResult,
                     enter = expandVertically(),
@@ -364,8 +335,6 @@ private fun PressureCalculatorScreen(
                 }
             }
         }
-
-        else -> Unit
     }
 }
 
