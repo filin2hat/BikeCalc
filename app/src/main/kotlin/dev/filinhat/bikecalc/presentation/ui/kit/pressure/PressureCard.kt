@@ -70,7 +70,7 @@ fun PressureCard(
             Column(
                 modifier =
                     Modifier
-                        .weight(0.6f)
+                        .weight(0.6f),
             ) {
                 Text(
                     text =
@@ -78,8 +78,7 @@ fun PressureCard(
                             Wheel.Front -> stringResource(R.string.front_wheel_pressure)
                             Wheel.Rear -> stringResource(R.string.rear_wheel_pressure)
                         },
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     modifier = Modifier.padding(bottom = 8.dp),
                     color = MaterialTheme.colorScheme.scrim,
                 )
@@ -119,9 +118,10 @@ fun PressureCard(
                 onPressureChanged = { unit ->
                     pressureUnits = unit
                 },
-                modifier = Modifier
-                    .weight(0.4f)
-                    .padding(start = 16.dp),
+                modifier =
+                    Modifier
+                        .weight(0.4f)
+                        .padding(start = 16.dp),
             )
         }
     }
