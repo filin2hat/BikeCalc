@@ -13,9 +13,9 @@
     <string name="bar">%1$s бар</string>
     <string name="atm">%1$s атм</string>
     <string name="psi">%1$s psi</string>
-    <string name="bar_btn">бар</string>
-    <string name="atm_btn">атм</string>
-    <string name="psi_btn">psi</string>
+    <string name="bar_btn">Бар</string>
+    <string name="atm_btn">Атм</string>
+    <string name="psi_btn">Psi</string>
     <string name="i_understand_this">Мне это понятно</string>
     <string name="dialog_title">Отказ от ответственности</string>
     <string name="dialog_text_chapter_one">Результаты расчетов, представленные в приложении, не являются абсолютно верными и могут отличаться от идеальных значений, так как они основаны на следующих источниках:</string>
