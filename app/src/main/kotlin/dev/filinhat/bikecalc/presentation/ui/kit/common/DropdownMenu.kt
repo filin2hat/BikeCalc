@@ -1,5 +1,6 @@
 package dev.filinhat.bikecalc.presentation.ui.kit.common
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -86,6 +87,7 @@ fun <T> DropdownMenu(
             ExposedDropdownMenu(
                 expanded = isMenuExpanded,
                 onDismissRequest = { isMenuExpanded = false },
+                modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer),
             ) {
                 items?.forEach { item ->
                     DropdownMenuItem(
@@ -104,7 +106,7 @@ fun <T> DropdownMenu(
                         },
                         colors =
                             MenuDefaults.itemColors(
-                                textColor = MaterialTheme.colorScheme.primary,
+                                textColor = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                     )
                 }
