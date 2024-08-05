@@ -1,5 +1,6 @@
-package dev.filinhat.bikecalc.presentation.ui.kit
+package dev.filinhat.bikecalc.presentation.ui.kit.common
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -73,14 +74,11 @@ fun <T> DropdownMenu(
                     ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                         focusedContainerColor = MaterialTheme.colorScheme.background,
                         unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                        unfocusedLabelColor = MaterialTheme.colorScheme.inversePrimary,
-                        unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
-                        focusedLabelColor = MaterialTheme.colorScheme.primary,
                         focusedTextColor = MaterialTheme.colorScheme.primary,
-                        focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
-                        unfocusedTrailingIconColor = MaterialTheme.colorScheme.inversePrimary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                         unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                     ),
+                shape = MaterialTheme.shapes.medium,
                 modifier =
                     Modifier
                         .menuAnchor()
@@ -89,6 +87,7 @@ fun <T> DropdownMenu(
             ExposedDropdownMenu(
                 expanded = isMenuExpanded,
                 onDismissRequest = { isMenuExpanded = false },
+                modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer),
             ) {
                 items?.forEach { item ->
                     DropdownMenuItem(
@@ -107,7 +106,7 @@ fun <T> DropdownMenu(
                         },
                         colors =
                             MenuDefaults.itemColors(
-                                textColor = MaterialTheme.colorScheme.primary,
+                                textColor = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                     )
                 }
@@ -127,14 +126,14 @@ fun <T> DropdownMenu(
 private fun PreviewDropdownMenu() {
     ApplicationTheme {
         DropdownMenu(
-            items = persistentListOf(),
+            items = persistentListOf("One", "Two", "Three"),
             onItemSelected = { },
             label = "Label",
             modifier =
                 Modifier
                     .padding(16.dp)
                     .fillMaxWidth(),
-            value = "",
+            value = "One",
             itemLabel = { item -> item.toString() },
         )
     }

@@ -12,9 +12,9 @@
     <string name="bar">%1$s bar</string>
     <string name="atm">%1$s atm</string>
     <string name="psi">%1$s psi</string>
-    <string name="bar_btn">bar</string>
-    <string name="atm_btn">atm</string>
-    <string name="psi_btn">psi</string>
+    <string name="bar_btn">Bar</string>
+    <string name="atm_btn">Atm</string>
+    <string name="psi_btn">Psi</string>
     <string name="i_understand_this">I understand this</string>
     <string name="dialog_title">Disclaimer</string>
     <string name="dialog_text_chapter_one">Calculation results presented in the application are not absolutely accurate and may differ from ideal values as they are based on the following sources:</string>

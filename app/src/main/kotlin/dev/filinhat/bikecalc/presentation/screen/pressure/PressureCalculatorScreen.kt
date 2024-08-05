@@ -1,6 +1,5 @@
-package dev.filinhat.bikecalc.presentation.screen.calcPressure
+package dev.filinhat.bikecalc.presentation.screen.pressure
 
-import android.app.Activity
 import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -15,13 +14,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -29,11 +34,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -43,8 +48,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.ColorUtils
-import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.filin2hat.bikecalc.R
@@ -56,7 +59,9 @@ import dev.filinhat.bikecalc.common.enums.tire.TireSize28Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.common.enums.wheel.Wheel
 import dev.filinhat.bikecalc.common.enums.wheel.WheelSize
-import dev.filinhat.bikecalc.presentation.ui.kit.DropdownMenu
+import dev.filinhat.bikecalc.presentation.ui.kit.common.DropdownMenu
+import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
+import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureCard
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 import dev.filinhat.bikecalc.presentation.util.validateWeight
 import kotlinx.collections.immutable.toPersistentList
@@ -65,18 +70,13 @@ import kotlinx.collections.immutable.toPersistentList
  * Экран для расчета давления велосипеда.
  *
  * @param viewModel [PressureCalculatorViewModel]
- * @param modifier модификатор экрана
  */
 @Composable
-internal fun PressureCalculatorScreen(
-    viewModel: PressureCalculatorViewModel = hiltViewModel(),
-    modifier: Modifier,
-) {
+internal fun PressureCalculatorScreen(viewModel: PressureCalculatorViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     PressureCalculatorScreen(
         uiState = uiState,
-        modifier = modifier,
         onCalcPressure = { bikeWeight, riderWeight, wheelSize, tireSize ->
             viewModel.perform(
                 PressureCalculatorViewModel.UiEvent.CalcPressure(
@@ -93,7 +93,7 @@ internal fun PressureCalculatorScreen(
 @Composable
 private fun PressureCalculatorScreen(
     uiState: PressureCalculatorViewModel.UiState,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onCalcPressure: (
         bikeWeight: Double,
         riderWeight: Double,
@@ -115,18 +115,7 @@ private fun PressureCalculatorScreen(
 
     var expandedTireSize by rememberSaveable { mutableStateOf(false) }
     var expandedCalcResult by rememberSaveable { mutableStateOf(false) }
-
-    if (context is Activity) {
-        with(context.window) {
-            statusBarColor = MaterialTheme.colorScheme.background.toArgb()
-            navigationBarColor = MaterialTheme.colorScheme.background.toArgb()
-            val isLightBackground =
-                ColorUtils.calculateLuminance(MaterialTheme.colorScheme.background.toArgb()) > 0.5
-            val windowInsetsController = WindowCompat.getInsetsController(this, this.decorView)
-            windowInsetsController.isAppearanceLightStatusBars = isLightBackground
-            windowInsetsController.isAppearanceLightNavigationBars = isLightBackground
-        }
-    }
+    var openInfoDialog by remember { mutableStateOf(false) }
 
     when (uiState) {
         PressureCalculatorViewModel.UiState.Loading -> {
@@ -146,20 +135,63 @@ private fun PressureCalculatorScreen(
         }
 
         is PressureCalculatorViewModel.UiState.Success -> {
-            Column(
-                modifier =
-                    modifier
-                        .verticalScroll(rememberScrollState())
-                        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
-                        .fillMaxSize(),
-            ) {
+            if (openInfoDialog) {
+                InfoDialog(
+                    onCloseDialog = { openInfoDialog = false },
+                    dialogTitle = stringResource(R.string.dialog_title),
+                    dialogText =
+                        stringResource(R.string.dialog_text_chapter_one) + "\n\n" +
+                            stringResource(R.string.dialog_text_chapter_two) + "\n" +
+                            stringResource(R.string.dialog_text_chapter_three) + "\n" +
+                            stringResource(R.string.dialog_text_chapter_four) + "\n\n" +
+                            stringResource(R.string.dialog_text_end),
+                    icon = Icons.Default.Info,
+                )
+            }
+            Column(modifier = modifier.fillMaxSize()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(R.string.app_bar_title),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+
+                    IconButton(
+                        onClick = {
+                            keyboardController?.hide()
+                            focusManager.clearFocus()
+                            openInfoDialog = true
+                        },
+                        colors =
+                            IconButtonDefaults.iconButtonColors(
+                                contentColor = MaterialTheme.colorScheme.primary,
+                            ),
+                        modifier = Modifier.size(48.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Info,
+                            contentDescription = null,
+                        )
+                    }
+                }
                 AnimatedVisibility(
                     visible = expandedCalcResult,
                     enter = expandVertically(),
                     exit = shrinkVertically(),
                     modifier = Modifier.padding(bottom = 18.dp),
                 ) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        modifier =
+                            Modifier
+                                .padding(top = 4.dp)
+                                .fillMaxWidth(),
+                    ) {
                         PressureCard(
                             value = uiState.result.first,
                             wheel = Wheel.Front,
@@ -204,13 +236,14 @@ private fun PressureCalculatorScreen(
                         isError = wrongRiderWeight,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         textStyle = MaterialTheme.typography.displaySmall,
+                        shape = MaterialTheme.shapes.medium,
                         colors =
                             OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.background,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                                unfocusedLabelColor = MaterialTheme.colorScheme.inversePrimary,
+                                unfocusedLabelColor = MaterialTheme.colorScheme.onBackground,
                                 focusedLabelColor = MaterialTheme.colorScheme.primary,
-                                unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                                 focusedTextColor = MaterialTheme.colorScheme.primary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                             ),
@@ -225,7 +258,7 @@ private fun PressureCalculatorScreen(
                         },
                     )
 
-                    Spacer(modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.size(22.dp))
 
                     OutlinedTextField(
                         value = bikeWeight,
@@ -254,15 +287,16 @@ private fun PressureCalculatorScreen(
                         isError = wrongBikeWeight,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         textStyle = MaterialTheme.typography.displaySmall,
+                        shape = MaterialTheme.shapes.medium,
                         colors =
                             OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = MaterialTheme.colorScheme.background,
                                 unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                                unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
-                                unfocusedLabelColor = MaterialTheme.colorScheme.inversePrimary,
-                                unfocusedTextColor = MaterialTheme.colorScheme.inversePrimary,
+                                unfocusedLabelColor = MaterialTheme.colorScheme.onBackground,
                                 focusedLabelColor = MaterialTheme.colorScheme.primary,
+                                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                                 focusedTextColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                             ),
                         supportingText = {
                             if (wrongBikeWeight) {
@@ -290,10 +324,7 @@ private fun PressureCalculatorScreen(
                     items = WheelSize.entries.toPersistentList(),
                     value = wheelSize,
                     itemLabel = { it?.nameSize },
-                    modifier =
-                        Modifier
-                            .padding(bottom = 18.dp)
-                            .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                 )
 
                 AnimatedVisibility(
@@ -320,7 +351,7 @@ private fun PressureCalculatorScreen(
                         itemLabel = { it?.nameSize },
                         modifier =
                             Modifier
-                                .padding(bottom = 18.dp)
+                                .padding(top = 18.dp)
                                 .fillMaxWidth(),
                     )
                 }
@@ -355,17 +386,21 @@ private fun PressureCalculatorScreen(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 18.dp),
+                            .height(90.dp)
+                            .padding(bottom = 18.dp, top = 24.dp),
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.scrim,
+                        ),
                 ) {
                     Text(
                         text = stringResource(R.string.calculate_pressure),
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.titleLarge,
                     )
                 }
             }
         }
-
-        else -> Unit
     }
 }
 
