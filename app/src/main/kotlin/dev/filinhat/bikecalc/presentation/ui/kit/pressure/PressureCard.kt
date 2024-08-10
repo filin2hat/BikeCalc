@@ -70,7 +70,7 @@ fun PressureCard(
                 modifier =
                     Modifier.weight(0.6f),
                 verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.Start,
             ) {
                 Text(
                     text =
