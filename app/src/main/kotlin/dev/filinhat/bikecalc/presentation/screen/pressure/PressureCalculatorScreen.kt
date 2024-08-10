@@ -63,7 +63,8 @@ import dev.filinhat.bikecalc.presentation.ui.kit.common.DropdownMenu
 import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
 import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureCard
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
-import dev.filinhat.bikecalc.presentation.util.validateWeight
+import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
+import dev.filinhat.bikecalc.presentation.util.validateUserWeight
 import kotlinx.collections.immutable.toPersistentList
 
 /**
@@ -218,7 +219,7 @@ private fun PressureCalculatorScreen(
                                 } else {
                                     it
                                 }
-                            wrongRiderWeight = !validateWeight(riderWeight)
+                            wrongRiderWeight = !validateUserWeight(riderWeight)
                             expandedCalcResult = false
                         },
                         label = {
@@ -269,7 +270,7 @@ private fun PressureCalculatorScreen(
                                 } else {
                                     it
                                 }
-                            wrongBikeWeight = !validateWeight(bikeWeight)
+                            wrongBikeWeight = !validateBikeWeight(bikeWeight)
                             expandedCalcResult = false
                         },
                         label = {

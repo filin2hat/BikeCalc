@@ -2,6 +2,7 @@ package dev.filinhat.bikecalc.presentation.ui.kit.pressure
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -51,6 +52,7 @@ fun ChangePressureRadioGroup(
         pressureUnits.forEach { item ->
             Row(
                 Modifier
+                    .border( 1.dp, MaterialTheme.colorScheme.inversePrimary, MaterialTheme.shapes.medium)
                     .clip(MaterialTheme.shapes.medium)
                     .background(MaterialTheme.colorScheme.background)
                     .height(32.dp)
@@ -78,7 +80,7 @@ fun ChangePressureRadioGroup(
                 Text(
                     text =
                         when (item) {
-                            PressureUnits.ATM -> stringResource(R.string.atm_btn)
+                            PressureUnits.KPa -> stringResource(R.string.kpa_btn)
                             PressureUnits.BAR -> stringResource(R.string.bar_btn)
                             PressureUnits.PSI -> stringResource(R.string.psi_btn)
                         },
@@ -101,7 +103,7 @@ private fun ChangePressureRadioGroupPreview() {
         ChangePressureRadioGroup(
             pressureUnits =
                 listOf(
-                    PressureUnits.ATM,
+                    PressureUnits.KPa,
                     PressureUnits.BAR,
                     PressureUnits.PSI,
                 ).toImmutableList(),
@@ -117,7 +119,7 @@ private fun ChangePressureRadioGroupPreviewDark() {
         ChangePressureRadioGroup(
             pressureUnits =
                 listOf(
-                    PressureUnits.ATM,
+                    PressureUnits.KPa,
                     PressureUnits.BAR,
                     PressureUnits.PSI,
                 ).toImmutableList(),

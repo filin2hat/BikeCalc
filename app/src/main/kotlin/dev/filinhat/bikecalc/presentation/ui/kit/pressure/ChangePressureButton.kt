@@ -42,7 +42,7 @@ fun ChangePressureButton(
         Text(
             text =
                 when (pressureUnits) {
-                    PressureUnits.ATM -> stringResource(id = R.string.atm_btn)
+                    PressureUnits.KPa -> stringResource(id = R.string.kpa_btn)
                     PressureUnits.BAR -> stringResource(id = R.string.bar_btn)
                     PressureUnits.PSI -> stringResource(id = R.string.psi_btn)
                 },
@@ -56,7 +56,7 @@ fun ChangePressureButton(
 private fun ChangePressureButtonPreview() {
     ApplicationTheme {
         ChangePressureButton(
-            pressureUnits = PressureUnits.ATM,
+            pressureUnits = PressureUnits.KPa,
             onPressureChanged = {},
         )
     }
@@ -67,7 +67,7 @@ private fun ChangePressureButtonPreview() {
 private fun ChangePressureButtonPreviewDark() {
     ApplicationTheme {
         ChangePressureButton(
-            pressureUnits = PressureUnits.ATM,
+            pressureUnits = PressureUnits.KPa,
             onPressureChanged = {},
         )
     }
