@@ -2,6 +2,7 @@ package dev.filinhat.bikecalc.presentation.ui.kit.pressure
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import dev.filin2hat.bikecalc.R
 import dev.filinhat.bikecalc.common.enums.units.PressureUnits
 import dev.filinhat.bikecalc.common.enums.wheel.Wheel
@@ -29,10 +29,9 @@ import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.math.ceil
 import kotlin.math.pow
-import kotlin.math.roundToInt
 
 @Suppress("ktlint:standard:property-naming")
-const val CardHeight = 135
+const val CardHeight = 130
 
 /**
  * Карточка для расчета и просмотра давления велосипеда.
@@ -69,8 +68,9 @@ fun PressureCard(
         ) {
             Column(
                 modifier =
-                    Modifier
-                        .weight(0.6f),
+                    Modifier.weight(0.6f),
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.Start,
             ) {
                 Text(
                     text =
@@ -78,34 +78,42 @@ fun PressureCard(
                             Wheel.Front -> stringResource(R.string.front_wheel_pressure)
                             Wheel.Rear -> stringResource(R.string.rear_wheel_pressure)
                         },
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp),
                     color = MaterialTheme.colorScheme.scrim,
                 )
-                Text(
-                    style = MaterialTheme.typography.displayLarge,
-                    color = MaterialTheme.colorScheme.scrim,
-                    text =
-                        when (pressureUnits) {
-                            PressureUnits.BAR ->
-                                stringResource(
-                                    R.string.bar,
-                                    formatValue(value),
-                                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.Bottom,
+                ) {
+                    Text(
+                        style = MaterialTheme.typography.displayMedium,
+                        color = MaterialTheme.colorScheme.scrim,
+                        text =
+                            when (pressureUnits) {
+                                PressureUnits.BAR -> formatValue(value)
+                                PressureUnits.KPa -> formatValue(value.barToKPa(), 0)
+                                PressureUnits.PSI -> formatValue(value.barToPsi(), 0)
+                            },
+                    )
 
-                            PressureUnits.ATM ->
-                                stringResource(
-                                    R.string.atm,
-                                    formatValue(value.barToAtm()),
-                                )
+                    Text(
+                        style = MaterialTheme.typography.displaySmall,
+                        color = MaterialTheme.colorScheme.scrim,
+                        text =
+                            when (pressureUnits) {
+                                PressureUnits.BAR ->
+                                    stringResource(R.string.bar)
 
-                            PressureUnits.PSI ->
-                                stringResource(
-                                    R.string.psi,
-                                    formatValue(value.barToPsi(), 0),
-                                )
-                        },
-                )
+                                PressureUnits.KPa ->
+                                    stringResource(R.string.kpa)
+
+                                PressureUnits.PSI ->
+                                    stringResource(R.string.psi)
+                            },
+                    )
+                }
             }
 
             ChangePressureRadioGroup(
@@ -113,7 +121,7 @@ fun PressureCard(
                     listOf(
                         PressureUnits.BAR,
                         PressureUnits.PSI,
-                        PressureUnits.ATM,
+                        PressureUnits.KPa,
                     ).toImmutableList(),
                 onPressureChanged = { unit ->
                     pressureUnits = unit
@@ -137,9 +145,11 @@ private fun formatValue(
     )
 
 // Conversion functions
-private fun Double.barToAtm(): Double = this / 1.01325
+private fun Double.barToKPa(): Double = this * 100
 
-private fun Double.barToPsi(): Double = (this * 14.5038).roundToInt().toDouble()
+private fun Double.barToAtm(): Double = this * 0.986923
+
+private fun Double.barToPsi(): Double = this * 14.5038
 
 @Preview(showBackground = true)
 @Composable

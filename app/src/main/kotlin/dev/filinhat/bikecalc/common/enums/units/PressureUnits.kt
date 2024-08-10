@@ -6,5 +6,5 @@ package dev.filinhat.bikecalc.common.enums.units
 enum class PressureUnits {
     BAR,
     PSI,
-    ATM,
+    KPa,
 }

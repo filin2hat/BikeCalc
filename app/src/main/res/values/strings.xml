@@ -9,11 +9,11 @@
     <string name="app_bar_title">Tire pressure calculator</string>
     <string name="front_wheel_pressure">Front wheel pressure:</string>
     <string name="rear_wheel_pressure">Rear wheel pressure:</string>
-    <string name="bar">%1$s bar</string>
-    <string name="atm">%1$s atm</string>
-    <string name="psi">%1$s psi</string>
+    <string name="bar">bar</string>
+    <string name="kpa">kPa</string>
+    <string name="psi">psi</string>
     <string name="bar_btn">Bar</string>
-    <string name="atm_btn">Atm</string>
+    <string name="kpa_btn">kPa</string>
     <string name="psi_btn">Psi</string>
     <string name="i_understand_this">I understand this</string>
     <string name="dialog_title">Disclaimer</string>
