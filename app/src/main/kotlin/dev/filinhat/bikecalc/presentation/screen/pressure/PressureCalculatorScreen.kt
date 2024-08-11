@@ -50,7 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.filin2hat.bikecalc.R
+import dev.filinhat.bikecalc.R
 import dev.filinhat.bikecalc.common.enums.tire.TireSize
 import dev.filinhat.bikecalc.common.enums.tire.TireSize24Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize26Inches

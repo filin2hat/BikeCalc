@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import dev.filin2hat.bikecalc.R
+import dev.filinhat.bikecalc.R
 
 private val robotoFamily =
     FontFamily(

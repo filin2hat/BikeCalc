@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-    namespace = "dev.filin2hat.bikecalc"
+    namespace = "dev.filinhat.bikecalc"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "dev.filin2hat.bikecalc"
+        applicationId = "dev.filinhat.bikecalc"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.2.0"
+        versionCode = 1
+        versionName = "2.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
