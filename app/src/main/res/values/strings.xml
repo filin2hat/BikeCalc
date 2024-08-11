@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bicycle Calc</string>
+    <string name="app_name">Bike Calculator</string>
     <string name="rider_weight_kg">Your weight (kg)</string>
     <string name="weight_incorrect">Incorrect weight entered</string>
     <string name="bike_weight_kg">Bike weight (kg)</string>
