@@ -1,19 +1,19 @@
 [versions]
-agp = "8.6.0"
-kotlin = "2.0.20"
-coreKtx = "1.13.1"
+agp = "8.6.1"
+kotlin = "2.0.21"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 kotlinxCollectionsImmutable = "0.3.7"
-lifecycleRuntimeKtx = "2.8.4"
-activityCompose = "1.9.1"
-composeBom = "2024.08.00"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.10.01"
 daggerHilt = "2.52"
 hiltCompose = "1.2.0"
-lifecycleRuntimeComposeAndroid = "2.8.4"
-composeRuntime = "1.7.0-rc01"
-ksp = "2.0.20-1.0.24"
+lifecycleRuntimeComposeAndroid = "2.8.7"
+composeRuntime = "1.7.5"
+ksp = "2.0.21-1.0.27"
 
 
 
