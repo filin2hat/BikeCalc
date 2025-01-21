@@ -30,22 +30,22 @@ fun ChangePressureButton(
             onPressureChanged(pressureUnits)
         },
         border =
-            BorderStroke(
-                width = 2.dp,
-                color = MaterialTheme.colorScheme.primary,
-            ),
+        BorderStroke(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.primary,
+        ),
         shape = MaterialTheme.shapes.medium,
         modifier = modifier.width(ButtonWidth.dp),
         colors =
-            ButtonDefaults.elevatedButtonColors(),
+        ButtonDefaults.elevatedButtonColors(),
     ) {
         Text(
             text =
-                when (pressureUnits) {
-                    PressureUnits.KPa -> stringResource(id = R.string.kpa_btn)
-                    PressureUnits.BAR -> stringResource(id = R.string.bar_btn)
-                    PressureUnits.PSI -> stringResource(id = R.string.psi_btn)
-                },
+            when (pressureUnits) {
+                PressureUnits.KPa -> stringResource(id = R.string.kpa_btn)
+                PressureUnits.BAR -> stringResource(id = R.string.bar_btn)
+                PressureUnits.PSI -> stringResource(id = R.string.psi_btn)
+            },
             style = MaterialTheme.typography.labelLarge,
         )
     }

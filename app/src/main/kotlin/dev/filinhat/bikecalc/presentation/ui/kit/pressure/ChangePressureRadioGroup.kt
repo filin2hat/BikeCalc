@@ -52,7 +52,11 @@ fun ChangePressureRadioGroup(
         pressureUnits.forEach { item ->
             Row(
                 Modifier
-                    .border( 1.dp, MaterialTheme.colorScheme.inversePrimary, MaterialTheme.shapes.medium)
+                    .border(
+                        1.dp,
+                        MaterialTheme.colorScheme.inversePrimary,
+                        MaterialTheme.shapes.medium
+                    )
                     .clip(MaterialTheme.shapes.medium)
                     .background(MaterialTheme.colorScheme.background)
                     .height(32.dp)
@@ -72,18 +76,18 @@ fun ChangePressureRadioGroup(
                     onClick = null,
                     modifier = Modifier.padding(start = 4.dp),
                     colors =
-                        RadioButtonDefaults.colors(
-                            selectedColor = MaterialTheme.colorScheme.primary,
-                            unselectedColor = MaterialTheme.colorScheme.onBackground,
-                        ),
+                    RadioButtonDefaults.colors(
+                        selectedColor = MaterialTheme.colorScheme.primary,
+                        unselectedColor = MaterialTheme.colorScheme.onBackground,
+                    ),
                 )
                 Text(
                     text =
-                        when (item) {
-                            PressureUnits.KPa -> stringResource(R.string.kpa_btn)
-                            PressureUnits.BAR -> stringResource(R.string.bar_btn)
-                            PressureUnits.PSI -> stringResource(R.string.psi_btn)
-                        },
+                    when (item) {
+                        PressureUnits.KPa -> stringResource(R.string.kpa_btn)
+                        PressureUnits.BAR -> stringResource(R.string.bar_btn)
+                        PressureUnits.PSI -> stringResource(R.string.psi_btn)
+                    },
                     style = MaterialTheme.typography.bodyLarge,
                     color = if (item == selectedOption) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(start = 6.dp),
@@ -102,11 +106,11 @@ private fun ChangePressureRadioGroupPreview() {
     ApplicationTheme {
         ChangePressureRadioGroup(
             pressureUnits =
-                listOf(
-                    PressureUnits.KPa,
-                    PressureUnits.BAR,
-                    PressureUnits.PSI,
-                ).toImmutableList(),
+            listOf(
+                PressureUnits.KPa,
+                PressureUnits.BAR,
+                PressureUnits.PSI,
+            ).toImmutableList(),
             onPressureChanged = {},
         )
     }
@@ -118,11 +122,11 @@ private fun ChangePressureRadioGroupPreviewDark() {
     ApplicationTheme {
         ChangePressureRadioGroup(
             pressureUnits =
-                listOf(
-                    PressureUnits.KPa,
-                    PressureUnits.BAR,
-                    PressureUnits.PSI,
-                ).toImmutableList(),
+            listOf(
+                PressureUnits.KPa,
+                PressureUnits.BAR,
+                PressureUnits.PSI,
+            ).toImmutableList(),
             onPressureChanged = {},
         )
     }

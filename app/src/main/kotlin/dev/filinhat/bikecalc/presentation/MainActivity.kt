@@ -16,15 +16,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
             statusBarStyle =
-                SystemBarStyle.light(
-                    Color.TRANSPARENT,
-                    Color.TRANSPARENT,
-                ),
+            SystemBarStyle.light(
+                Color.TRANSPARENT,
+                Color.TRANSPARENT,
+            ),
             navigationBarStyle =
-                SystemBarStyle.light(
-                    Color.TRANSPARENT,
-                    Color.TRANSPARENT,
-                ),
+            SystemBarStyle.light(
+                Color.TRANSPARENT,
+                Color.TRANSPARENT,
+            ),
         )
         setContent {
             ApplicationTheme {

@@ -22,96 +22,96 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class PressureCalculatorViewModel
-    @Inject
-    constructor(
-        private val repository: PressureCalcRepository,
-    ) : ViewModel(),
-        BaseViewModel<UiState, UiEvent> {
-        private val _uiState = MutableStateFlow<UiState>(UiState.Success(0.0 to 0.0))
-        override val uiState =
-            _uiState
-                .asStateFlow()
-                .stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.Lazily,
-                    initialValue = UiState.Loading,
+@Inject
+constructor(
+    private val repository: PressureCalcRepository,
+) : ViewModel(),
+    BaseViewModel<UiState, UiEvent> {
+    private val _uiState = MutableStateFlow<UiState>(UiState.Success(0.0 to 0.0))
+    override val uiState =
+        _uiState
+            .asStateFlow()
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Lazily,
+                initialValue = UiState.Loading,
+            )
+
+    override fun perform(event: UiEvent) =
+        when (event) {
+            is UiEvent.CalcPressure ->
+                onCalcPressure(
+                    event.bikeWeight,
+                    event.riderWeight,
+                    event.wheelSize,
+                    event.tireSize,
                 )
-
-        override fun perform(event: UiEvent) =
-            when (event) {
-                is UiEvent.CalcPressure ->
-                    onCalcPressure(
-                        event.bikeWeight,
-                        event.riderWeight,
-                        event.wheelSize,
-                        event.tireSize,
-                    )
-            }
-
-        private fun onCalcPressure(
-            riderWeight: Double,
-            bikeWeight: Double,
-            wheelSize: WheelSize,
-            tireSize: TireSize,
-        ) {
-            viewModelScope.launch {
-                _uiState.value = UiState.Loading
-                repository
-                    .calcPressure(riderWeight, bikeWeight, wheelSize, tireSize)
-                    .catch { e ->
-                        _uiState.value = UiState.Error("Указаны не корректные данные для расчета.")
-                    }.collect { result ->
-                        _uiState.value = UiState.Success(result)
-                    }
-            }
         }
 
-        /**
-         * Определяет состояния UI, которые может принимать ViewModel.
-         */
-        sealed interface UiState {
-            /**
-             * Состояние загрузки данных
-             */
-            data object Loading : UiState
-
-            /**
-             * Состояние ошибки
-             *
-             * @param message Сообщение об ошибке
-             */
-            data class Error(
-                val message: String,
-            ) : UiState
-
-            /**
-             * Состояние успешного получения данных
-             *
-             * @param result Результат расчета давления
-             */
-            data class Success(
-                val result: Pair<Double, Double>,
-            ) : UiState
-        }
-
-        /**
-         * Определяет события UI, инициированные пользователем,
-         * на которые ViewModel должен отреагировать.
-         */
-        sealed interface UiEvent {
-            /**
-             * Событие "Рассчитать давление"
-             *
-             * @param bikeWeight Вес велосипеда
-             * @param riderWeight Вес велосипедиста
-             * @param wheelSize Размер колеса
-             * @param tireSize Размер покрышки
-             */
-            data class CalcPressure(
-                val riderWeight: Double,
-                val bikeWeight: Double,
-                val wheelSize: WheelSize,
-                val tireSize: TireSize,
-            ) : UiEvent
+    private fun onCalcPressure(
+        riderWeight: Double,
+        bikeWeight: Double,
+        wheelSize: WheelSize,
+        tireSize: TireSize,
+    ) {
+        viewModelScope.launch {
+            _uiState.value = UiState.Loading
+            repository
+                .calcPressure(riderWeight, bikeWeight, wheelSize, tireSize)
+                .catch { e ->
+                    _uiState.value = UiState.Error("Указаны не корректные данные для расчета.")
+                }.collect { result ->
+                    _uiState.value = UiState.Success(result)
+                }
         }
     }
+
+    /**
+     * Определяет состояния UI, которые может принимать ViewModel.
+     */
+    sealed interface UiState {
+        /**
+         * Состояние загрузки данных
+         */
+        data object Loading : UiState
+
+        /**
+         * Состояние ошибки
+         *
+         * @param message Сообщение об ошибке
+         */
+        data class Error(
+            val message: String,
+        ) : UiState
+
+        /**
+         * Состояние успешного получения данных
+         *
+         * @param result Результат расчета давления
+         */
+        data class Success(
+            val result: Pair<Double, Double>,
+        ) : UiState
+    }
+
+    /**
+     * Определяет события UI, инициированные пользователем,
+     * на которые ViewModel должен отреагировать.
+     */
+    sealed interface UiEvent {
+        /**
+         * Событие "Рассчитать давление"
+         *
+         * @param bikeWeight Вес велосипеда
+         * @param riderWeight Вес велосипедиста
+         * @param wheelSize Размер колеса
+         * @param tireSize Размер покрышки
+         */
+        data class CalcPressure(
+            val riderWeight: Double,
+            val bikeWeight: Double,
+            val wheelSize: WheelSize,
+            val tireSize: TireSize,
+        ) : UiEvent
+    }
+}
