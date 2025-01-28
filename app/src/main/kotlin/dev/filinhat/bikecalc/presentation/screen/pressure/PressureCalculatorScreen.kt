@@ -312,7 +312,7 @@ private fun PressureCalculatorScreen(
                 }
 
                 DropdownMenu(
-                    onItemSelected = {
+                    onItemSelect = {
                         if (it != wheelSize) {
                             tireSize = null
                             expandedTireSize = false
@@ -334,7 +334,7 @@ private fun PressureCalculatorScreen(
                     exit = shrinkVertically(),
                 ) {
                     DropdownMenu(
-                        onItemSelected = {
+                        onItemSelect = {
                             tireSize = it
                             expandedCalcResult = false
                         },

@@ -44,9 +44,9 @@ fun InfoDialog(
                 contentDescription = "",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier =
-                Modifier
-                    .rotate(180f)
-                    .size(36.dp),
+                    Modifier
+                        .rotate(180f)
+                        .size(36.dp),
             )
         },
         title = {
@@ -58,8 +58,8 @@ fun InfoDialog(
         text = {
             Column(
                 modifier =
-                Modifier
-                    .verticalScroll(rememberScrollState()),
+                    Modifier
+                        .verticalScroll(rememberScrollState()),
             ) {
                 Text(
                     text = dialogText,

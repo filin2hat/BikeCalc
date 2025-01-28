@@ -16,36 +16,35 @@ import dev.filinhat.bikecalc.R
 import dev.filinhat.bikecalc.common.enums.units.PressureUnits
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 
-@Suppress("ktlint:standard:property-naming")
-private const val ButtonWidth = 75
+private const val BUTTON_WIDTH = 75
 
 @Composable
 fun ChangePressureButton(
+    onPressureChange: (pressureUnits: PressureUnits) -> Unit,
     pressureUnits: PressureUnits,
     modifier: Modifier = Modifier,
-    onPressureChanged: (pressureUnits: PressureUnits) -> Unit,
 ) {
     ElevatedButton(
         onClick = {
-            onPressureChanged(pressureUnits)
+            onPressureChange(pressureUnits)
         },
         border =
-        BorderStroke(
-            width = 2.dp,
-            color = MaterialTheme.colorScheme.primary,
-        ),
+            BorderStroke(
+                width = 2.dp,
+                color = MaterialTheme.colorScheme.primary,
+            ),
         shape = MaterialTheme.shapes.medium,
-        modifier = modifier.width(ButtonWidth.dp),
+        modifier = modifier.width(BUTTON_WIDTH.dp),
         colors =
-        ButtonDefaults.elevatedButtonColors(),
+            ButtonDefaults.elevatedButtonColors(),
     ) {
         Text(
             text =
-            when (pressureUnits) {
-                PressureUnits.KPa -> stringResource(id = R.string.kpa_btn)
-                PressureUnits.BAR -> stringResource(id = R.string.bar_btn)
-                PressureUnits.PSI -> stringResource(id = R.string.psi_btn)
-            },
+                when (pressureUnits) {
+                    PressureUnits.KPa -> stringResource(id = R.string.kpa_btn)
+                    PressureUnits.BAR -> stringResource(id = R.string.bar_btn)
+                    PressureUnits.PSI -> stringResource(id = R.string.psi_btn)
+                },
             style = MaterialTheme.typography.labelLarge,
         )
     }
@@ -57,7 +56,7 @@ private fun ChangePressureButtonPreview() {
     ApplicationTheme {
         ChangePressureButton(
             pressureUnits = PressureUnits.KPa,
-            onPressureChanged = {},
+            onPressureChange = {},
         )
     }
 }
@@ -68,7 +67,7 @@ private fun ChangePressureButtonPreviewDark() {
     ApplicationTheme {
         ChangePressureButton(
             pressureUnits = PressureUnits.KPa,
-            onPressureChanged = {},
+            onPressureChange = {},
         )
     }
 }

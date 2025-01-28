@@ -30,8 +30,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlin.math.ceil
 import kotlin.math.pow
 
-@Suppress("ktlint:standard:property-naming")
-const val CardHeight = 130
+const val CARD_HEIGHT = 130
 
 /**
  * Карточка для расчета и просмотра давления велосипеда.
@@ -50,34 +49,34 @@ fun PressureCard(
 
     Card(
         colors =
-        CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-        ),
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+            ),
         modifier =
-        modifier
-            .fillMaxWidth()
-            .height(CardHeight.dp),
+            modifier
+                .fillMaxWidth()
+                .height(CARD_HEIGHT.dp),
         border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier =
-            Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
         ) {
             Column(
                 modifier =
-                Modifier.weight(0.6f),
+                    Modifier.weight(0.6f),
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.Start,
             ) {
                 Text(
                     text =
-                    when (wheel) {
-                        Wheel.Front -> stringResource(R.string.front_wheel_pressure)
-                        Wheel.Rear -> stringResource(R.string.rear_wheel_pressure)
-                    },
+                        when (wheel) {
+                            Wheel.Front -> stringResource(R.string.front_wheel_pressure)
+                            Wheel.Rear -> stringResource(R.string.rear_wheel_pressure)
+                        },
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp),
                     color = MaterialTheme.colorScheme.scrim,
@@ -91,45 +90,45 @@ fun PressureCard(
                         style = MaterialTheme.typography.displayMedium,
                         color = MaterialTheme.colorScheme.scrim,
                         text =
-                        when (pressureUnits) {
-                            PressureUnits.BAR -> formatValue(value)
-                            PressureUnits.KPa -> formatValue(value.barToKPa(), 0)
-                            PressureUnits.PSI -> formatValue(value.barToPsi(), 0)
-                        },
+                            when (pressureUnits) {
+                                PressureUnits.BAR -> formatValue(value)
+                                PressureUnits.KPa -> formatValue(value.barToKPa(), 0)
+                                PressureUnits.PSI -> formatValue(value.barToPsi(), 0)
+                            },
                     )
 
                     Text(
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.scrim,
                         text =
-                        when (pressureUnits) {
-                            PressureUnits.BAR ->
-                                stringResource(R.string.bar)
+                            when (pressureUnits) {
+                                PressureUnits.BAR ->
+                                    stringResource(R.string.bar)
 
-                            PressureUnits.KPa ->
-                                stringResource(R.string.kpa)
+                                PressureUnits.KPa ->
+                                    stringResource(R.string.kpa)
 
-                            PressureUnits.PSI ->
-                                stringResource(R.string.psi)
-                        },
+                                PressureUnits.PSI ->
+                                    stringResource(R.string.psi)
+                            },
                     )
                 }
             }
 
             ChangePressureRadioGroup(
                 pressureUnits =
-                listOf(
-                    PressureUnits.BAR,
-                    PressureUnits.PSI,
-                    PressureUnits.KPa,
-                ).toImmutableList(),
-                onPressureChanged = { unit ->
+                    listOf(
+                        PressureUnits.BAR,
+                        PressureUnits.PSI,
+                        PressureUnits.KPa,
+                    ).toImmutableList(),
+                onPressureChange = { unit ->
                     pressureUnits = unit
                 },
                 modifier =
-                Modifier
-                    .weight(0.4f)
-                    .padding(start = 16.dp),
+                    Modifier
+                        .weight(0.4f)
+                        .padding(start = 16.dp),
             )
         }
     }

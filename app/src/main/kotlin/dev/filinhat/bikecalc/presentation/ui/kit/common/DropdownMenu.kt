@@ -30,7 +30,7 @@ import kotlinx.collections.immutable.persistentListOf
 /**
  * Базовое поле с выбором для всего приложения
  *
- * @param onItemSelected callback на выбранный элемент
+ * @param onItemSelect callback на выбранный элемент
  * @param label Подсказка к полю
  * @param items Список элементов для выбора
  * @param modifier переопределить стиль элемента
@@ -39,7 +39,7 @@ import kotlinx.collections.immutable.persistentListOf
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> DropdownMenu(
-    onItemSelected: (T) -> Unit,
+    onItemSelect: (T) -> Unit,
     items: PersistentList<T>?,
     value: T?,
     label: String,
@@ -72,21 +72,21 @@ fun <T> DropdownMenu(
                 },
                 textStyle = MaterialTheme.typography.bodyLarge,
                 colors =
-                ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    focusedContainerColor = MaterialTheme.colorScheme.background,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                    focusedTextColor = MaterialTheme.colorScheme.primary,
-                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
-                ),
+                    ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                        focusedTextColor = MaterialTheme.colorScheme.primary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
+                    ),
                 shape = MaterialTheme.shapes.medium,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .menuAnchor(
-                        type = MenuAnchorType.PrimaryNotEditable,
-                        enabled = true
-                    )
+                    Modifier
+                        .fillMaxWidth()
+                        .menuAnchor(
+                            type = MenuAnchorType.PrimaryNotEditable,
+                            enabled = true,
+                        ),
             )
             ExposedDropdownMenu(
                 expanded = isMenuExpanded,
@@ -97,7 +97,7 @@ fun <T> DropdownMenu(
                     DropdownMenuItem(
                         onClick = {
                             selectedItem = item
-                            onItemSelected(item)
+                            onItemSelect(item)
                             isMenuExpanded = false
                         },
                         text = {
@@ -109,9 +109,9 @@ fun <T> DropdownMenu(
                             }
                         },
                         colors =
-                        MenuDefaults.itemColors(
-                            textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        ),
+                            MenuDefaults.itemColors(
+                                textColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                            ),
                     )
                 }
             }
@@ -131,12 +131,12 @@ private fun PreviewDropdownMenu() {
     ApplicationTheme {
         DropdownMenu(
             items = persistentListOf("One", "Two", "Three"),
-            onItemSelected = { },
+            onItemSelect = { },
             label = "Label",
             modifier =
-            Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
             value = "One",
             itemLabel = { item -> item.toString() },
         )
