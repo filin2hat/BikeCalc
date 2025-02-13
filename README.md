@@ -1,6 +1,6 @@
 # Bicycle Calc
 
-![Bicycle Calc Logo](link-to-your-logo.png)
+![Bicycle Calc](screenshot/screens01.png)
 
 ## Overview
 
