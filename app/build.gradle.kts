@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "dev.filinhat.bikecalc"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "dev.filinhat.bikecalc"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "2.0.0"
 
