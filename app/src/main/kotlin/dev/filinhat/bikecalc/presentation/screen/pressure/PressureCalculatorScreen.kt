@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,15 +13,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -57,11 +53,15 @@ import dev.filinhat.bikecalc.common.enums.tire.TireSize26Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize275Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize28Inches
 import dev.filinhat.bikecalc.common.enums.tire.TireSize29Inches
+import dev.filinhat.bikecalc.common.enums.tube.TubeType
 import dev.filinhat.bikecalc.common.enums.wheel.Wheel
 import dev.filinhat.bikecalc.common.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.data.model.PressureCalcResult
 import dev.filinhat.bikecalc.presentation.ui.kit.common.DropdownMenu
 import dev.filinhat.bikecalc.presentation.ui.kit.common.InfoDialog
+import dev.filinhat.bikecalc.presentation.ui.kit.pressure.CalculatePressureButton
 import dev.filinhat.bikecalc.presentation.ui.kit.pressure.PressureCard
+import dev.filinhat.bikecalc.presentation.ui.kit.pressure.TubeTypeChangeButton
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 import dev.filinhat.bikecalc.presentation.util.validateBikeWeight
 import dev.filinhat.bikecalc.presentation.util.validateUserWeight
@@ -117,6 +117,8 @@ private fun PressureCalculatorScreen(
     var expandedTireSize by rememberSaveable { mutableStateOf(false) }
     var expandedCalcResult by rememberSaveable { mutableStateOf(false) }
     var openInfoDialog by remember { mutableStateOf(false) }
+
+    var selectedTubeType by rememberSaveable { mutableStateOf(TubeType.TUBES) }
 
     when (uiState) {
         UiState.Loading -> {
@@ -194,20 +196,29 @@ private fun PressureCalculatorScreen(
                                 .fillMaxWidth(),
                     ) {
                         PressureCard(
-                            value = uiState.result.first,
+                            value =
+                                when (selectedTubeType) {
+                                    TubeType.TUBES -> uiState.result.tubesFront
+                                    TubeType.TUBELESS -> uiState.result.tubelessFront
+                                },
                             wheel = Wheel.Front,
                         )
                         Spacer(modifier = Modifier.size(18.dp))
 
                         PressureCard(
-                            value = uiState.result.second,
+                            value =
+                                when (selectedTubeType) {
+                                    TubeType.TUBES -> uiState.result.tubesRear
+                                    TubeType.TUBELESS -> uiState.result.tubelessRear
+                                },
                             wheel = Wheel.Rear,
                         )
                     }
                 }
                 Row(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier =
+                        Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.Top,
                 ) {
                     OutlinedTextField(
@@ -258,9 +269,6 @@ private fun PressureCalculatorScreen(
                             }
                         },
                     )
-
-                    Spacer(modifier = Modifier.size(22.dp))
-
                     OutlinedTextField(
                         value = bikeWeight,
                         onValueChange = {
@@ -325,7 +333,10 @@ private fun PressureCalculatorScreen(
                     items = WheelSize.entries.toPersistentList(),
                     value = wheelSize,
                     itemLabel = { it?.nameSize },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .padding(bottom = 22.dp)
+                            .fillMaxWidth(),
                 )
 
                 AnimatedVisibility(
@@ -352,24 +363,41 @@ private fun PressureCalculatorScreen(
                         itemLabel = { it?.nameSize },
                         modifier =
                             Modifier
-                                .padding(top = 18.dp)
+                                .padding(bottom = 22.dp)
                                 .fillMaxWidth(),
                     )
                 }
-
-                Button(
-                    shape = MaterialTheme.shapes.medium,
-                    border =
-                        BorderStroke(
-                            width = 2.dp,
-                            color = MaterialTheme.colorScheme.inversePrimary,
-                        ),
+                TubeTypeChangeButton(
                     onClick = {
                         onCalcPressure(
                             bikeWeight.toDouble(),
                             riderWeight.toDouble(),
-                            wheelSize ?: return@Button,
-                            tireSize ?: return@Button,
+                            wheelSize ?: return@TubeTypeChangeButton,
+                            tireSize ?: return@TubeTypeChangeButton,
+                        )
+                        keyboardController?.hide()
+                        focusManager.clearFocus()
+                    },
+                    onTypeChange = { selectedTubeType = it },
+                    enabled =
+                        validateIfEmpty(
+                            wrongRiderWeight,
+                            wrongBikeWeight,
+                            wheelSize,
+                            tireSize,
+                            riderWeight,
+                            bikeWeight,
+                        ),
+                    selectedType = selectedTubeType,
+                )
+
+                CalculatePressureButton(
+                    onClick = {
+                        onCalcPressure(
+                            bikeWeight.toDouble(),
+                            riderWeight.toDouble(),
+                            wheelSize ?: return@CalculatePressureButton,
+                            tireSize ?: return@CalculatePressureButton,
                         )
                         keyboardController?.hide()
                         focusManager.clearFocus()
@@ -384,22 +412,7 @@ private fun PressureCalculatorScreen(
                             riderWeight,
                             bikeWeight,
                         ),
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .height(90.dp)
-                            .padding(bottom = 18.dp, top = 24.dp),
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            contentColor = MaterialTheme.colorScheme.scrim,
-                        ),
-                ) {
-                    Text(
-                        text = stringResource(R.string.calculate_pressure),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
+                )
             }
         }
     }
@@ -427,7 +440,13 @@ private fun PressureCalculatorScreenPreview() {
         PressureCalculatorScreen(
             uiState =
                 UiState.Success(
-                    result = Pair(4.0, 4.2),
+                    result =
+                        PressureCalcResult(
+                            tubesFront = 0.0,
+                            tubesRear = 0.0,
+                            tubelessFront = 0.0,
+                            tubelessRear = 0.0,
+                        ),
                 ),
             onCalcPressure = { _, _, _, _ -> },
             modifier = Modifier,

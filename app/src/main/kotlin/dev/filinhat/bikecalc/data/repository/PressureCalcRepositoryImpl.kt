@@ -2,10 +2,13 @@ package dev.filinhat.bikecalc.data.repository
 
 import dev.filinhat.bikecalc.common.enums.tire.TireSize
 import dev.filinhat.bikecalc.common.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.data.model.PressureCalcResult
 import dev.filinhat.bikecalc.data.model.PressureCoefficients
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+
+private const val TUBELESS_PRESSURE_COEFFICIENT = 0.85
 
 class PressureCalcRepositoryImpl
     @Inject
@@ -15,13 +18,13 @@ class PressureCalcRepositoryImpl
             bikeWeight: Double,
             wheelSize: WheelSize,
             tireSize: TireSize,
-        ): Flow<Pair<Double, Double>> =
+        ): Flow<PressureCalcResult> =
             flow {
                 val coefficients =
                     pressureCoefficientsMap[wheelSize]
                         ?: throw IllegalArgumentException("Unsupported wheel size: $wheelSize")
 
-                val frontPressure =
+                val frontPressureTubes =
                     calculatePressure(
                         riderWeight,
                         bikeWeight,
@@ -30,7 +33,7 @@ class PressureCalcRepositoryImpl
                         coefficients,
                         isFront = true,
                     )
-                val rearPressure =
+                val rearPressureTubes =
                     calculatePressure(
                         riderWeight,
                         bikeWeight,
@@ -39,8 +42,17 @@ class PressureCalcRepositoryImpl
                         coefficients,
                         isFront = false,
                     )
+                val frontPressureTubeless = frontPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
+                val rearPressureTubeless = rearPressureTubes * TUBELESS_PRESSURE_COEFFICIENT
 
-                emit(frontPressure to rearPressure)
+                emit(
+                    PressureCalcResult(
+                        tubesFront = frontPressureTubes,
+                        tubesRear = rearPressureTubes,
+                        tubelessFront = frontPressureTubeless,
+                        tubelessRear = rearPressureTubeless,
+                    ),
+                )
             }
 
         private fun calculatePressure(

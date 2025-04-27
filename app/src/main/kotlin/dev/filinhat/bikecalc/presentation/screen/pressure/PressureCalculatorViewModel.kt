@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.filinhat.bikecalc.common.enums.tire.TireSize
 import dev.filinhat.bikecalc.common.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.data.model.PressureCalcResult
 import dev.filinhat.bikecalc.data.repository.PressureCalcRepository
 import dev.filinhat.bikecalc.presentation.util.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,7 @@ class PressureCalculatorViewModel
         private val repository: PressureCalcRepository,
     ) : ViewModel(),
         BaseViewModel<UiState, UiEvent> {
-        private val _uiState = MutableStateFlow<UiState>(UiState.Success(0.0 to 0.0))
+        private val _uiState = MutableStateFlow<UiState>(UiState.Success(PressureCalcResult()))
         override val uiState =
             _uiState
                 .asStateFlow()

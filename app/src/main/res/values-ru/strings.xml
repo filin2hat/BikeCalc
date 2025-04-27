@@ -7,6 +7,7 @@
     <string name="wheel_size">Размер колеса</string>
     <string name="tire_size">Размер покрышки</string>
     <string name="calculate_pressure">Рассчитать давление</string>
+    <string name="tubeless">Без камеры</string>
     <string name="app_bar_title">Калькулятор давления шин</string>
     <string name="front_wheel_pressure">Давление переднего колеса:</string>
     <string name="rear_wheel_pressure">Давление заднего колеса:</string>
@@ -24,4 +25,5 @@
     <string name="dialog_text_chapter_four">3. Личный опыт и практические наблюдения.</string>
     <string name="dialog_text_end">Рекомендуется использовать результаты расчетов в качестве ориентировочных значений и всегда проверять данные перед использованием.</string>
     <string name="app_version">Версия: %1$s</string>
+    <string name="tubes">С камерой</string>
 </resources>

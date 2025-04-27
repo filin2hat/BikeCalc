@@ -2,6 +2,7 @@ package dev.filinhat.bikecalc.data.repository
 
 import dev.filinhat.bikecalc.common.enums.tire.TireSize
 import dev.filinhat.bikecalc.common.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.data.model.PressureCalcResult
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -13,5 +14,5 @@ interface PressureCalcRepository {
         bikeWeight: Double,
         wheelSize: WheelSize,
         tireSize: TireSize,
-    ): Flow<Pair<Double, Double>>
+    ): Flow<PressureCalcResult>
 }

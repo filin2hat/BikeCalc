@@ -1,5 +1,7 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
+import dev.filinhat.bikecalc.data.model.PressureCalcResult
+
 /**
  * Определяет состояния UI, которые может принимать ViewModel.
  */
@@ -24,6 +26,6 @@ sealed interface UiState {
      * @param result Результат расчета давления
      */
     data class Success(
-        val result: Pair<Double, Double>,
+        val result: PressureCalcResult,
     ) : UiState
 }
