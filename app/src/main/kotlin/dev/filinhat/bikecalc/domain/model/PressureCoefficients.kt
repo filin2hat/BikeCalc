@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.data.model
+package dev.filinhat.bikecalc.domain.model
 
 data class PressureCoefficients(
     val frontFactor: Double,

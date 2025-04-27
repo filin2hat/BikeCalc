@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.data.model
+package dev.filinhat.bikecalc.domain.model
 
 /**
  * Результат расчета давления велосипеда

@@ -1,6 +1,6 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
-import dev.filinhat.bikecalc.data.model.PressureCalcResult
+import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 
 /**
  * Определяет состояния UI, которые может принимать ViewModel.

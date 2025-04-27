@@ -23,8 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.filinhat.bikecalc.R
-import dev.filinhat.bikecalc.common.enums.units.PressureUnits
-import dev.filinhat.bikecalc.common.enums.wheel.Wheel
+import dev.filinhat.bikecalc.domain.enums.units.PressureUnits
+import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.math.ceil

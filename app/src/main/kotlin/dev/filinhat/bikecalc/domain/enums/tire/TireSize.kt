@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.common.enums.tire
+package dev.filinhat.bikecalc.domain.enums.tire
 
 /**
  * Общий интерфейс для размеров колес велосипеда.

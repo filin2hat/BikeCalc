@@ -1,9 +1,10 @@
 package dev.filinhat.bikecalc.data.repository
 
-import dev.filinhat.bikecalc.common.enums.tire.TireSize
-import dev.filinhat.bikecalc.common.enums.wheel.WheelSize
-import dev.filinhat.bikecalc.data.model.PressureCalcResult
-import dev.filinhat.bikecalc.data.model.PressureCoefficients
+import dev.filinhat.bikecalc.domain.enums.tire.TireSize
+import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.domain.model.PressureCalcResult
+import dev.filinhat.bikecalc.domain.model.PressureCoefficients
+import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

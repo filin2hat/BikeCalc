@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.common.enums.wheel
+package dev.filinhat.bikecalc.domain.enums.wheel
 
 /**
  * Список диаметров колес велосипеда в дюймах.

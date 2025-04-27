@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.common.enums.tire
+package dev.filinhat.bikecalc.domain.enums.tire
 
 /**
  * Список размеров для 26-х дюймовых колес велосипеда.

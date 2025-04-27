@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.common.enums.tube
+package dev.filinhat.bikecalc.domain.enums.tube
 
 enum class TubeType {
     TUBES,

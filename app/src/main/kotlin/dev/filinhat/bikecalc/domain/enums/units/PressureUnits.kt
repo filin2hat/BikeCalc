@@ -1,4 +1,4 @@
-package dev.filinhat.bikecalc.common.enums.units
+package dev.filinhat.bikecalc.domain.enums.units
 
 /**
  * Список единиц измерения давления велосипеда.

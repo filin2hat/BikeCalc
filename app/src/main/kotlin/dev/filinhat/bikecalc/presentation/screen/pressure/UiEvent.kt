@@ -1,7 +1,7 @@
 package dev.filinhat.bikecalc.presentation.screen.pressure
 
-import dev.filinhat.bikecalc.common.enums.tire.TireSize
-import dev.filinhat.bikecalc.common.enums.wheel.WheelSize
+import dev.filinhat.bikecalc.domain.enums.tire.TireSize
+import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 
 /**
  * Определяет события UI, инициированные пользователем,
