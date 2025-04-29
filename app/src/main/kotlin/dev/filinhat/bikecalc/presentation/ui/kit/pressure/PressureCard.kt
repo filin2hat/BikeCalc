@@ -143,10 +143,7 @@ private fun formatValue(
         ceil(value * 10.0.pow(decimalPlaces)) / 10.0.pow(decimalPlaces),
     )
 
-// Conversion functions
 private fun Double.barToKPa(): Double = this * 100
-
-private fun Double.barToAtm(): Double = this * 0.986923
 
 private fun Double.barToPsi(): Double = this * 14.5038
 
