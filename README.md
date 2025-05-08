@@ -1,6 +1,6 @@
 # Bicycle Calc
 
-![Bicycle Calc](screenshot/screens01.png)
+![Bicycle Calc](screenshot/pic01.png)
 
 ## Overview
 
