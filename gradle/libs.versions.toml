@@ -1,15 +1,15 @@
 [versions]
-agp = "8.9.2"
+agp = "8.10.0"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
 kotlinxCollectionsImmutable = "0.3.7"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.04.01"
+composeBom = "2025.05.00"
 daggerHilt = "2.55"
 hiltCompose = "1.2.0"
-lifecycleRuntimeComposeAndroid = "2.8.7"
-composeRuntime = "1.8.0"
+lifecycleRuntimeComposeAndroid = "2.9.0"
+composeRuntime = "1.8.1"
 ksp = "2.1.20-1.0.32"
 
 [libraries]
