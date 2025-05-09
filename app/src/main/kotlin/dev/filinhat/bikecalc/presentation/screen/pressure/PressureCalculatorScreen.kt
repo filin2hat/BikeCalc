@@ -6,6 +6,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -48,12 +51,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.filinhat.bikecalc.R
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize
+import dev.filinhat.bikecalc.domain.enums.tire.TireSize20Inches
+import dev.filinhat.bikecalc.domain.enums.tire.TireSize20InchesBMX
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize24Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize26Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize275Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize28Inches
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize29Inches
 import dev.filinhat.bikecalc.domain.enums.tube.TubeType
+import dev.filinhat.bikecalc.domain.enums.units.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.model.PressureCalcResult
@@ -78,13 +84,14 @@ internal fun PressureCalculatorScreen(viewModel: PressureCalculatorViewModel = h
 
     PressureCalculatorScreen(
         uiState = uiState,
-        onCalcPressure = { bikeWeight, riderWeight, wheelSize, tireSize ->
+        onCalcPressure = { bikeWeight, riderWeight, wheelSize, tireSize, weightUnit ->
             viewModel.perform(
                 UiEvent.CalcPressure(
                     bikeWeight,
                     riderWeight,
                     wheelSize,
                     tireSize,
+                    weightUnit,
                 ),
             )
         },
@@ -100,16 +107,19 @@ private fun PressureCalculatorScreen(
         riderWeight: Double,
         wheelSize: WheelSize,
         tireSize: TireSize,
-    ) -> Unit = { _, _, _, _ -> },
+        weightUnit: WeightUnit,
+    ) -> Unit = { _, _, _, _, _ -> },
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
+    var selectedUnitWeight by rememberSaveable { mutableStateOf(WeightUnit.KG) }
     var riderWeight: String by rememberSaveable { mutableStateOf("") }
     var bikeWeight: String by rememberSaveable { mutableStateOf("") }
     var wheelSize: WheelSize? by rememberSaveable { mutableStateOf(null) }
     var tireSize: TireSize? by rememberSaveable { mutableStateOf(null) }
+    var selectedTubeType by rememberSaveable { mutableStateOf(TubeType.TUBES) }
 
     var wrongRiderWeight by rememberSaveable { mutableStateOf(false) }
     var wrongBikeWeight by rememberSaveable { mutableStateOf(false) }
@@ -117,8 +127,6 @@ private fun PressureCalculatorScreen(
     var expandedTireSize by rememberSaveable { mutableStateOf(false) }
     var expandedCalcResult by rememberSaveable { mutableStateOf(false) }
     var openInfoDialog by remember { mutableStateOf(false) }
-
-    var selectedTubeType by rememberSaveable { mutableStateOf(TubeType.TUBES) }
 
     when (uiState) {
         UiState.Loading -> {
@@ -219,7 +227,7 @@ private fun PressureCalculatorScreen(
                     modifier =
                         Modifier.fillMaxSize(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.Top,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     OutlinedTextField(
                         value = riderWeight,
@@ -235,7 +243,7 @@ private fun PressureCalculatorScreen(
                         },
                         label = {
                             Text(
-                                text = stringResource(R.string.rider_weight_kg),
+                                text = stringResource(R.string.rider_weight),
                                 fontSize = 14.sp,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
@@ -283,7 +291,7 @@ private fun PressureCalculatorScreen(
                         },
                         label = {
                             Text(
-                                text = stringResource(R.string.bike_weight_kg),
+                                text = stringResource(R.string.bike_weight),
                                 fontSize = 14.sp,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
@@ -317,6 +325,43 @@ private fun PressureCalculatorScreen(
                             }
                         },
                     )
+                    FilledIconButton(
+                        modifier =
+                            Modifier
+                                .weight(0.20f)
+                                .fillMaxWidth()
+                                .height(80.dp)
+                                .padding(bottom = 8.dp)
+                                .border(
+                                    width = 2.dp,
+                                    color = MaterialTheme.colorScheme.inversePrimary,
+                                    shape = MaterialTheme.shapes.medium,
+                                ),
+                        shape = MaterialTheme.shapes.medium,
+                        onClick = {
+                            expandedCalcResult = false
+                            selectedUnitWeight =
+                                when (selectedUnitWeight) {
+                                    WeightUnit.KG -> {
+                                        WeightUnit.LBS
+                                    }
+
+                                    WeightUnit.LBS -> {
+                                        WeightUnit.KG
+                                    }
+                                }
+                        },
+                    ) {
+                        Text(
+                            text =
+                                if (selectedUnitWeight == WeightUnit.KG) {
+                                    stringResource(R.string.kg)
+                                } else {
+                                    stringResource(R.string.lbs)
+                                },
+                            style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp),
+                        )
+                    }
                 }
 
                 DropdownMenu(
@@ -352,6 +397,8 @@ private fun PressureCalculatorScreen(
                         label = stringResource(R.string.tire_size),
                         items =
                             when (wheelSize) {
+                                WheelSize.Inches20BMX -> TireSize20InchesBMX.entries.toPersistentList()
+                                WheelSize.Inches20 -> TireSize20Inches.entries.toPersistentList()
                                 WheelSize.Inches24 -> TireSize24Inches.entries.toPersistentList()
                                 WheelSize.Inches26 -> TireSize26Inches.entries.toPersistentList()
                                 WheelSize.Inches275 -> TireSize275Inches.entries.toPersistentList()
@@ -374,6 +421,7 @@ private fun PressureCalculatorScreen(
                             riderWeight.toDouble(),
                             wheelSize ?: return@TubeTypeChangeButton,
                             tireSize ?: return@TubeTypeChangeButton,
+                            selectedUnitWeight,
                         )
                         keyboardController?.hide()
                         focusManager.clearFocus()
@@ -398,6 +446,7 @@ private fun PressureCalculatorScreen(
                             riderWeight.toDouble(),
                             wheelSize ?: return@CalculatePressureButton,
                             tireSize ?: return@CalculatePressureButton,
+                            selectedUnitWeight,
                         )
                         keyboardController?.hide()
                         focusManager.clearFocus()
@@ -448,7 +497,7 @@ private fun PressureCalculatorScreenPreview() {
                             tubelessRear = 0.0,
                         ),
                 ),
-            onCalcPressure = { _, _, _, _ -> },
+            onCalcPressure = { _, _, _, _, _ -> },
             modifier = Modifier,
         )
     }

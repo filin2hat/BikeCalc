@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.filinhat.bikecalc.R
-import dev.filinhat.bikecalc.domain.enums.units.PressureUnits
+import dev.filinhat.bikecalc.domain.enums.units.PressureUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.Wheel
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 import kotlinx.collections.immutable.toImmutableList
@@ -45,7 +45,7 @@ fun PressureCard(
     wheel: Wheel,
     modifier: Modifier = Modifier,
 ) {
-    var pressureUnits by rememberSaveable { mutableStateOf(PressureUnits.BAR) }
+    var pressureUnit by rememberSaveable { mutableStateOf(PressureUnit.BAR) }
 
     Card(
         colors =
@@ -90,10 +90,10 @@ fun PressureCard(
                         style = MaterialTheme.typography.displayMedium,
                         color = MaterialTheme.colorScheme.scrim,
                         text =
-                            when (pressureUnits) {
-                                PressureUnits.BAR -> formatValue(value)
-                                PressureUnits.KPa -> formatValue(value.barToKPa(), 0)
-                                PressureUnits.PSI -> formatValue(value.barToPsi(), 0)
+                            when (pressureUnit) {
+                                PressureUnit.BAR -> formatValue(value)
+                                PressureUnit.KPa -> formatValue(value.barToKPa(), 0)
+                                PressureUnit.PSI -> formatValue(value.barToPsi(), 0)
                             },
                     )
 
@@ -101,14 +101,14 @@ fun PressureCard(
                         style = MaterialTheme.typography.displaySmall,
                         color = MaterialTheme.colorScheme.scrim,
                         text =
-                            when (pressureUnits) {
-                                PressureUnits.BAR ->
+                            when (pressureUnit) {
+                                PressureUnit.BAR ->
                                     stringResource(R.string.bar)
 
-                                PressureUnits.KPa ->
+                                PressureUnit.KPa ->
                                     stringResource(R.string.kpa)
 
-                                PressureUnits.PSI ->
+                                PressureUnit.PSI ->
                                     stringResource(R.string.psi)
                             },
                     )
@@ -118,12 +118,12 @@ fun PressureCard(
             ChangePressureRadioGroup(
                 pressureUnits =
                     listOf(
-                        PressureUnits.BAR,
-                        PressureUnits.PSI,
-                        PressureUnits.KPa,
+                        PressureUnit.BAR,
+                        PressureUnit.PSI,
+                        PressureUnit.KPa,
                     ).toImmutableList(),
                 onPressureChange = { unit ->
-                    pressureUnits = unit
+                    pressureUnit = unit
                 },
                 modifier =
                     Modifier

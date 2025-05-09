@@ -13,20 +13,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.filinhat.bikecalc.R
-import dev.filinhat.bikecalc.domain.enums.units.PressureUnits
+import dev.filinhat.bikecalc.domain.enums.units.PressureUnit
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 
 private const val BUTTON_WIDTH = 75
 
 @Composable
 fun ChangePressureButton(
-    onPressureChange: (pressureUnits: PressureUnits) -> Unit,
-    pressureUnits: PressureUnits,
+    onPressureChange: (pressureUnit: PressureUnit) -> Unit,
+    pressureUnit: PressureUnit,
     modifier: Modifier = Modifier,
 ) {
     ElevatedButton(
         onClick = {
-            onPressureChange(pressureUnits)
+            onPressureChange(pressureUnit)
         },
         border =
             BorderStroke(
@@ -40,10 +40,10 @@ fun ChangePressureButton(
     ) {
         Text(
             text =
-                when (pressureUnits) {
-                    PressureUnits.KPa -> stringResource(id = R.string.kpa_btn)
-                    PressureUnits.BAR -> stringResource(id = R.string.bar_btn)
-                    PressureUnits.PSI -> stringResource(id = R.string.psi_btn)
+                when (pressureUnit) {
+                    PressureUnit.KPa -> stringResource(id = R.string.kpa_btn)
+                    PressureUnit.BAR -> stringResource(id = R.string.bar_btn)
+                    PressureUnit.PSI -> stringResource(id = R.string.psi_btn)
                 },
             style = MaterialTheme.typography.labelLarge,
         )
@@ -55,7 +55,7 @@ fun ChangePressureButton(
 private fun ChangePressureButtonPreview() {
     ApplicationTheme {
         ChangePressureButton(
-            pressureUnits = PressureUnits.KPa,
+            pressureUnit = PressureUnit.KPa,
             onPressureChange = {},
         )
     }
@@ -66,7 +66,7 @@ private fun ChangePressureButtonPreview() {
 private fun ChangePressureButtonPreviewDark() {
     ApplicationTheme {
         ChangePressureButton(
-            pressureUnits = PressureUnits.KPa,
+            pressureUnit = PressureUnit.KPa,
             onPressureChange = {},
         )
     }
