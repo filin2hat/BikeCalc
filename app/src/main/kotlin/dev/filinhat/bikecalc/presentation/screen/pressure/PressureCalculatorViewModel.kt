@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.filinhat.bikecalc.domain.enums.tire.TireSize
+import dev.filinhat.bikecalc.domain.enums.units.WeightUnit
 import dev.filinhat.bikecalc.domain.enums.wheel.WheelSize
 import dev.filinhat.bikecalc.domain.model.PressureCalcResult
 import dev.filinhat.bikecalc.domain.repository.PressureCalcRepository
@@ -44,6 +45,7 @@ class PressureCalculatorViewModel
                         event.riderWeight,
                         event.wheelSize,
                         event.tireSize,
+                        event.weightUnit,
                     )
             }
 
@@ -52,11 +54,12 @@ class PressureCalculatorViewModel
             bikeWeight: Double,
             wheelSize: WheelSize,
             tireSize: TireSize,
+            weightUnit: WeightUnit,
         ) {
             viewModelScope.launch {
                 _uiState.value = UiState.Loading
                 repository
-                    .calcPressure(riderWeight, bikeWeight, wheelSize, tireSize)
+                    .calcPressure(riderWeight, bikeWeight, wheelSize, tireSize, weightUnit)
                     .catch { e ->
                         _uiState.value = UiState.Error("Указаны не корректные данные для расчета.")
                     }.collect { result ->

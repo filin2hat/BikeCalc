@@ -28,15 +28,15 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.filinhat.bikecalc.R
-import dev.filinhat.bikecalc.domain.enums.units.PressureUnits
+import dev.filinhat.bikecalc.domain.enums.units.PressureUnit
 import dev.filinhat.bikecalc.presentation.ui.theme.ApplicationTheme
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun ChangePressureRadioGroup(
-    pressureUnits: ImmutableList<PressureUnits>,
-    onPressureChange: (pressureUnits: PressureUnits) -> Unit,
+    pressureUnits: ImmutableList<PressureUnit>,
+    onPressureChange: (pressureUnit: PressureUnit) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val (selectedOption, onOptionSelected) = rememberSaveable { mutableStateOf(pressureUnits[0]) }
@@ -83,9 +83,9 @@ fun ChangePressureRadioGroup(
                 Text(
                     text =
                         when (item) {
-                            PressureUnits.KPa -> stringResource(R.string.kpa_btn)
-                            PressureUnits.BAR -> stringResource(R.string.bar_btn)
-                            PressureUnits.PSI -> stringResource(R.string.psi_btn)
+                            PressureUnit.KPa -> stringResource(R.string.kpa_btn)
+                            PressureUnit.BAR -> stringResource(R.string.bar_btn)
+                            PressureUnit.PSI -> stringResource(R.string.psi_btn)
                         },
                     style = MaterialTheme.typography.bodyLarge,
                     color = if (item == selectedOption) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground,
@@ -106,9 +106,9 @@ private fun ChangePressureRadioGroupPreview() {
         ChangePressureRadioGroup(
             pressureUnits =
                 listOf(
-                    PressureUnits.KPa,
-                    PressureUnits.BAR,
-                    PressureUnits.PSI,
+                    PressureUnit.KPa,
+                    PressureUnit.BAR,
+                    PressureUnit.PSI,
                 ).toImmutableList(),
             onPressureChange = {},
         )
@@ -122,9 +122,9 @@ private fun ChangePressureRadioGroupPreviewDark() {
         ChangePressureRadioGroup(
             pressureUnits =
                 listOf(
-                    PressureUnits.KPa,
-                    PressureUnits.BAR,
-                    PressureUnits.PSI,
+                    PressureUnit.KPa,
+                    PressureUnit.BAR,
+                    PressureUnit.PSI,
                 ).toImmutableList(),
             onPressureChange = {},
         )

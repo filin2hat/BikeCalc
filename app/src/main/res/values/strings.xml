@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Bike Calculator</string>
-    <string name="rider_weight_kg">Your weight (kg)</string>
+    <string name="rider_weight">Your weight</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
     <string name="weight_incorrect">Incorrect weight entered</string>
-    <string name="bike_weight_kg">Bike weight (kg)</string>
+    <string name="bike_weight">Bike weight</string>
     <string name="wheel_size">Wheel size</string>
     <string name="tire_size">Tire size</string>
     <string name="calculate_pressure">Calculate pressure</string>
