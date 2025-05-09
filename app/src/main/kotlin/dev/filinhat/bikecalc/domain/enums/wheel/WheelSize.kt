@@ -10,6 +10,8 @@ enum class WheelSize(
     val nameSize: String,
     val inchesSize: Double,
 ) {
+    Inches20("20\" (ISO 451 mm)", 20.0),
+    Inches20BMX("20\" (ISO 406 mm)", 20.0),
     Inches24("24\" (ISO 507 - 540 mm)", 24.0),
     Inches26("26\" (ISO 559 - 590 mm)", 26.0),
     Inches275("27.5\" (ISO 584 mm / 650B)", 27.5),
