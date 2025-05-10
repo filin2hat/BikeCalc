@@ -49,6 +49,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    tasks.withType<JavaCompile> {
+        options.compilerArgs.add("-Xlint:deprecation")
+    }
     kotlinOptions {
         jvmTarget = "17"
     }
@@ -59,6 +62,9 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+        jniLibs {
+            keepDebugSymbols.add("*/libandroidx.graphics.path.so")
         }
     }
     buildToolsVersion = "36.0.0"

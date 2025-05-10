@@ -20,12 +20,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
         content = { innerPadding ->
             Column(
                 modifier =
-                modifier
-                    .verticalScroll(rememberScrollState())
-                    .fillMaxSize()
-                    .padding(top = innerPadding.calculateTopPadding())
-                    .padding(bottom = innerPadding.calculateBottomPadding())
-                    .padding(horizontal = 16.dp),
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxSize()
+                        .padding(top = innerPadding.calculateTopPadding())
+                        .padding(bottom = innerPadding.calculateBottomPadding())
+                        .padding(horizontal = 16.dp),
             ) {
                 PressureCalculatorScreen()
             }
