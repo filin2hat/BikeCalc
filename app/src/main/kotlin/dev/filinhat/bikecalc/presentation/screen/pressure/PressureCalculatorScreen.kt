@@ -225,7 +225,9 @@ private fun PressureCalculatorScreen(
                 }
                 Row(
                     modifier =
-                        Modifier.fillMaxSize(),
+                        Modifier
+                            .fillMaxSize()
+                            .padding(bottom = 14.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -267,15 +269,6 @@ private fun PressureCalculatorScreen(
                                 focusedTextColor = MaterialTheme.colorScheme.primary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                             ),
-                        supportingText = {
-                            if (wrongRiderWeight) {
-                                Text(
-                                    text = stringResource(R.string.weight_incorrect),
-                                    color = MaterialTheme.colorScheme.error,
-                                    fontSize = 10.sp,
-                                )
-                            }
-                        },
                     )
                     OutlinedTextField(
                         value = bikeWeight,
@@ -315,23 +308,14 @@ private fun PressureCalculatorScreen(
                                 focusedTextColor = MaterialTheme.colorScheme.primary,
                                 unfocusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
                             ),
-                        supportingText = {
-                            if (wrongBikeWeight) {
-                                Text(
-                                    text = stringResource(R.string.weight_incorrect),
-                                    color = MaterialTheme.colorScheme.error,
-                                    fontSize = 10.sp,
-                                )
-                            }
-                        },
                     )
                     FilledIconButton(
                         modifier =
                             Modifier
                                 .weight(0.20f)
                                 .fillMaxWidth()
-                                .height(80.dp)
-                                .padding(bottom = 8.dp)
+                                .height(78.dp)
+                                .padding(top = 4.dp)
                                 .border(
                                     width = 2.dp,
                                     color = MaterialTheme.colorScheme.inversePrimary,
@@ -380,8 +364,9 @@ private fun PressureCalculatorScreen(
                     itemLabel = { it?.nameSize },
                     modifier =
                         Modifier
-                            .padding(bottom = 22.dp)
-                            .fillMaxWidth(),
+                            .padding(
+                                bottom = if (expandedTireSize) 18.dp else 22.dp,
+                            ).fillMaxWidth(),
                 )
 
                 AnimatedVisibility(

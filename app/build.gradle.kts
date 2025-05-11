@@ -14,8 +14,8 @@ android {
         applicationId = "dev.filinhat.bikecalc"
         minSdk = 26
         targetSdk = 36
-        versionCode = 3
-        versionName = "2.2.0"
+        versionCode = 5
+        versionName = "2.2.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
